@@ -164,7 +164,7 @@ export default function App() {
                     fontSize: 12,
                   }}
                 >
-                  Home
+                  Settings
                 </Text>
               </View>
             ),
