@@ -107,21 +107,9 @@ export default function Details({ route, navigation }) {
                       bg: "coolGray.800:alpha.20",
                     }}
                     _pressed={{
-                      bg: "coolGray.800:alpha.20",
-                      _icon: {
-                        name: "emoji-flirt",
-                      },
-                      _ios: {
-                        _icon: {
-                          size: "2xl",
-                        },
-                      },
+                      bg: "coolGray.800:alpha.40",
                     }}
-                    _ios={{
-                      _icon: {
-                        size: "2xl",
-                      },
-                    }}
+                    onPress={() => navigation.goBack()}
                   />
                 </View>
               </View>
