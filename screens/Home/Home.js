@@ -36,6 +36,7 @@ export default function Home() {
       <View style={tw`flex flex-row items-center justify-between`}>
         <View style={tw`flex flex-row items-center gap-1 px-4`}>
           <Text style={tw` text-xl text-black font-black`}>DZHIKERS</Text>
+
           <Image
             source={require("./../../assets/noback.png")}
             style={{ width: 60, height: 60, resizeMode: "contain" }}

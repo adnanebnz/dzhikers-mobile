@@ -1,15 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home/Home";
 import Settings from "./screens/Settings/Settings";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import Notifs from "./screens/notifs/Notifs";
-import Cart from "./screens/Cart/Cart";
 import Contact from "./screens/Contact/Contact";
 import MapViewer from "./screens/map/MapViewer";
-
+import Details from "./screens/Randos/Details";
 export default function App() {
   const Tab = createBottomTabNavigator();
+  const Stack = createNativeStackNavigator();
 
   const CustomTabButton = ({ children, onPress }) => (
     <TouchableOpacity
@@ -32,10 +33,14 @@ export default function App() {
       </View>
     </TouchableOpacity>
   );
-
+  <Stack.Navigator>
+    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Home" component={Details} />
+  </Stack.Navigator>;
   return (
     <NavigationContainer>
       <Tab.Navigator
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
