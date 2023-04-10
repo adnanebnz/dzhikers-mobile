@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { makeRequest } from "../../makeRequest";
 export default function Home() {
   const [data, setData] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -23,9 +23,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(
-          "https://dzhikers.up.railway.app/api/users"
-        );
+        const result = await makeRequest.get("/users");
         setData(result.data);
       } catch (err) {
         console.log(err);
@@ -50,7 +48,7 @@ export default function Home() {
           />
         </TouchableOpacity>
       </View>
-      <View style={tw`mt-6 px-3`}>
+      <View style={tw`mt-1 px-3`}>
         <View>
           <Text style={tw`text-2xl`}>
             Explorez <Text style={tw`font-bold`}>l'Algérie</Text> avec nous!
