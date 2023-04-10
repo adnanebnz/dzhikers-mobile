@@ -1,14 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home/Home";
 import Settings from "./screens/Settings/Settings";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import Notifs from "./screens/notifs/Notifs";
 import Contact from "./screens/Contact/Contact";
 import MapViewer from "./screens/map/MapViewer";
-export default function App({ navigation }) {
-  const Tab = createBottomTabNavigator();
+import Details from "./screens/Randos/Details";
 
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function Root({ navigation }) {
   const CustomTabButton = ({ children, onPress }) => (
     <TouchableOpacity
       style={{
@@ -32,7 +36,7 @@ export default function App({ navigation }) {
   );
 
   return (
-    <NavigationContainer>
+    <>
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
@@ -204,6 +208,29 @@ export default function App({ navigation }) {
           }}
         />
       </Tab.Navigator>
+    </>
+  );
+}
+
+export default function App({ navigation }) {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Acceuil"
+          component={Root}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={Details}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

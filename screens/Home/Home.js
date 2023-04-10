@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+
 export default function Home() {
   const [searchText, setSearchText] = useState("");
 
