@@ -12,8 +12,6 @@ import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 export default function Home() {
-  const Stack = createNativeStackNavigator();
-
   const [searchText, setSearchText] = useState("");
 
   const handleClear = () => {
