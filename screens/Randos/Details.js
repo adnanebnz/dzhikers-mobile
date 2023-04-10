@@ -32,10 +32,31 @@ export default function Details({ route, navigation }) {
     };
     fetchPin();
   }, []);
-  //handle the navigation to go back to the previous screen
-  const goBack = () => {
-    navigation.goBack();
+  const handleBooking = async () => {
+    try {
+      const res = await makeRequest.post(
+        `/reservations/${id}/register`,
+        {
+          hikeId: id,
+          organizerUsername: data.organizer,
+          places: data.places,
+          lat: data.lat,
+          long: data.long,
+          price: data.price,
+          hikeTitle: data.title,
+          firstName: "Mohamed Adnane",
+          lastName: "Benzerdjeb",
+          email: "adnane0@yahoo.fr",
+          age: "20",
+          userId: "6431b3749330be2c90c57ec8",
+        },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <NativeBaseProvider>
       <SafeAreaView style={{ marginTop: 10, paddingHorizontal: 4 }}>
@@ -145,7 +166,7 @@ export default function Details({ route, navigation }) {
 
                 <Text style={tw`text-gray-700`}>{data.desc}</Text>
                 <View style={tw`pt-6`}>
-                  <Button title="Réserver" onPress={goBack} />
+                  <Button title="Réserver" onPress={handleBooking} />
                 </View>
               </View>
             </ScrollView>
