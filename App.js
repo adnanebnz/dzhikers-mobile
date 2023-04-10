@@ -6,6 +6,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import Notifs from "./screens/notifs/Notifs";
 import Cart from "./screens/Cart/Cart";
 import Contact from "./screens/Contact/Contact";
+import MapViewer from "./screens/map/MapViewer";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -118,13 +119,13 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Cart"
-          component={Cart}
+          name="Map"
+          component={MapViewer}
           options={{
             tabBarIcon: ({ focused }) => (
               <View>
                 <Image
-                  source={require("./assets/bag.png")}
+                  source={require("./assets/map-icon.png")}
                   resizeMode="contain"
                   style={{
                     width: 35,
