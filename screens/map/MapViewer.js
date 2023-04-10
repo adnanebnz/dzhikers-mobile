@@ -62,8 +62,7 @@ export default function MapViewer({ navigation }) {
               >
                 <Callout
                   onPress={() => {
-                    navigation.navigate("Details");
-                    console.log(pin._id);
+                    navigation.navigate("Details", { id: pin._id });
                   }}
                 >
                   <Text style={tw`text-lg text-gray-800 font-semibold`}>

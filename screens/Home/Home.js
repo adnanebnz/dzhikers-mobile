@@ -9,28 +9,17 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
-import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { makeRequest } from "../../makeRequest";
+import { useState } from "react";
 export default function Home() {
-  const [data, setData] = useState([]);
+  const Stack = createNativeStackNavigator();
+
   const [searchText, setSearchText] = useState("");
 
   const handleClear = () => {
     setSearchText("");
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await makeRequest.get("/users");
-        setData(result.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
   return (
     <SafeAreaView style={tw`pt-4`}>
       <View style={tw`flex flex-row items-center justify-between`}>
