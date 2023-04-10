@@ -8,6 +8,8 @@ import Notifs from "./screens/notifs/Notifs";
 import Contact from "./screens/Contact/Contact";
 import MapViewer from "./screens/map/MapViewer";
 import Details from "./screens/Randos/Details";
+import Login from "./screens/Auth/Login";
+import Register from "./screens/Auth/Register";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -82,14 +84,14 @@ function Root({ navigation }) {
                     fontSize: 12,
                   }}
                 >
-                  Home
+                  Accueil
                 </Text>
               </View>
             ),
           }}
         />
         <Tab.Screen
-          name="Contact"
+          name="Cart"
           component={Contact}
           options={{
             tabBarIcon: ({ focused }) => (
@@ -101,7 +103,7 @@ function Root({ navigation }) {
                 }}
               >
                 <Image
-                  source={require("./assets/contact.png")}
+                  source={require("./assets/bag.png")}
                   resizeMode="contain"
                   style={{
                     width: 25,
@@ -115,7 +117,7 @@ function Root({ navigation }) {
                     fontSize: 12,
                   }}
                 >
-                  Contact
+                  Panier
                 </Text>
               </View>
             ),
@@ -226,6 +228,20 @@ export default function App({ navigation }) {
         <Stack.Screen
           name="Details"
           component={Details}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
           options={{
             headerShown: false,
           }}

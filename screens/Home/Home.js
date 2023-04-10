@@ -12,7 +12,7 @@ import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [searchText, setSearchText] = useState("");
 
   const handleClear = () => {
@@ -30,7 +30,12 @@ export default function Home() {
             style={{ width: 60, height: 60, resizeMode: "contain" }}
           />
         </View>
-        <TouchableOpacity style={tw`px-2`}>
+        <TouchableOpacity
+          style={tw`px-2`}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
           <Image
             source={require("../../assets/noavatar.png")}
             style={styles.avatar}
