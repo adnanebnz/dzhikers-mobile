@@ -19,7 +19,15 @@ import { IconButton, Icon, Center, NativeBaseProvider } from "native-base";
 export default function Details({ route, navigation }) {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
   const [data, setData] = useState([]);
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const user = await AsyncStorage.getItem("currentUser");
+      setCurrentUser(JSON.parse(user));
+    };
+    getCurrentUser();
+  }, []);
   useEffect(() => {
     const fetchPin = async () => {
       try {
@@ -44,11 +52,11 @@ export default function Details({ route, navigation }) {
           long: data.long,
           price: data.price,
           hikeTitle: data.title,
-          firstName: "Mohamed Adnane",
-          lastName: "Benzerdjeb",
-          email: "adnane0@yahoo.fr",
-          age: "20",
-          userId: "6431b3749330be2c90c57ec8",
+          firstName: currentUser.details.firstName,
+          lastName: currentUser.details.lastName,
+          email: currentUser.details.email,
+          age: currentUser.details.age,
+          userId: currentUser.details._id,
         },
         { withCredentials: true }
       );

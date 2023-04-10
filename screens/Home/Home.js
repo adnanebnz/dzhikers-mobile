@@ -10,14 +10,22 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home({ navigation }) {
   const [searchText, setSearchText] = useState("");
-
+  const [currentUser, setCurrentUser] = useState(null);
   const handleClear = () => {
     setSearchText("");
   };
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const user = await AsyncStorage.getItem("currentUser");
+      setCurrentUser(JSON.parse(user));
+    };
+    getCurrentUser();
+  }, []);
 
   return (
     <SafeAreaView style={tw`pt-4`}>
@@ -30,17 +38,32 @@ export default function Home({ navigation }) {
             style={{ width: 60, height: 60, resizeMode: "contain" }}
           />
         </View>
-        <TouchableOpacity
-          style={tw`px-2`}
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-        >
-          <Image
-            source={require("../../assets/noavatar.png")}
-            style={styles.avatar}
-          />
-        </TouchableOpacity>
+        {!currentUser && (
+          <TouchableOpacity
+            style={tw`px-2`}
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <Image
+              source={require("../../assets/noavatar.png")}
+              style={styles.avatar}
+            />
+          </TouchableOpacity>
+        )}
+        {currentUser && (
+          <TouchableOpacity
+            style={tw`px-2`}
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <Image
+              source={{ uri: currentUser.details.img }}
+              style={styles.avatar}
+            />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={tw`mt-1 px-3`}>
         <View>
