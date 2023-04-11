@@ -10,6 +10,7 @@ import MapViewer from "./screens/map/MapViewer";
 import Details from "./screens/Randos/Details";
 import Login from "./screens/Auth/Login";
 import Register from "./screens/Auth/Register";
+import Profile from "./screens/Auth/Profile";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -242,6 +243,13 @@ export default function App({ navigation }) {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
           options={{
             headerShown: false,
           }}

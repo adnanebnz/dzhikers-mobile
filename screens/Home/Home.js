@@ -55,7 +55,7 @@ export default function Home({ navigation }) {
           <TouchableOpacity
             style={tw`px-2`}
             onPress={() => {
-              navigation.navigate("Login");
+              navigation.navigate("Profile", { id: currentUser.details._id });
             }}
           >
             <Image
