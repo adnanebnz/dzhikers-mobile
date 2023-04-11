@@ -15,21 +15,14 @@ import { useEffect, useState } from "react";
 import { makeRequest } from "../../makeRequest";
 import tw from "twrnc";
 import moment from "moment/moment";
-import { IconButton, Icon, Center, NativeBaseProvider } from "native-base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IconButton, Icon, NativeBaseProvider } from "native-base";
+import useFetchUser from "../../hooks/useFetchUser";
 
 export default function Details({ route, navigation }) {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
   const [data, setData] = useState([]);
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const user = await AsyncStorage.getItem("currentUser");
-      setCurrentUser(JSON.parse(user));
-    };
-    getCurrentUser();
-  }, []);
+  const { user, userLoading, error } = useFetchUser();
   useEffect(() => {
     const fetchPin = async () => {
       try {
@@ -54,11 +47,11 @@ export default function Details({ route, navigation }) {
           long: data.long,
           price: data.price,
           hikeTitle: data.title,
-          firstName: currentUser.details.firstName,
-          lastName: currentUser.details.lastName,
-          email: currentUser.details.email,
-          age: currentUser.details.age,
-          userId: currentUser.details._id,
+          firstName: user.details.firstName,
+          lastName: user.details.lastName,
+          email: user.details.email,
+          age: user.details.age,
+          userId: user.details._id,
         },
         { withCredentials: true }
       );

@@ -10,28 +10,32 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Menu, Divider, Provider } from "react-native-paper";
+import useFetchUser from "../../hooks/useFetchUser";
+import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button, Menu, Divider, Provider } from "react-native-paper";
+import { useEffect } from "react";
+
 export default function Home({ navigation }) {
   const [visible, setVisible] = useState(false);
-
-  const openMenu = () => setVisible(true);
-
+  const { user, userLoading, error } = useFetchUser();
   const closeMenu = () => setVisible(false);
   const [searchText, setSearchText] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
   const handleClear = () => {
     setSearchText("");
   };
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const user = await AsyncStorage.getItem("currentUser");
-      setCurrentUser(JSON.parse(user));
-    };
-    getCurrentUser();
-  }, []);
-
+  const handleDisconnect = async () => {
+    try {
+      await makeRequest.post("/users/logout", "", {
+        withCredentials: true,
+      });
+      await AsyncStorage.removeItem("currentUser");
+    } catch (error) {
+      console.log(error);
+    }
+    navigation.navigate("Login");
+  };
   return (
     <Provider>
       <Menu
@@ -47,13 +51,12 @@ export default function Home({ navigation }) {
       >
         <Menu.Item
           onPress={() => {
-            setCurrentUser(null);
             //handle disonnect api call plus clear storage
           }}
           title="Profile"
         />
         <Divider />
-        <Menu.Item onPress={() => {}} title="Deconnecter" />
+        <Menu.Item onPress={handleDisconnect} title="Deconnecter" />
       </Menu>
 
       <SafeAreaView style={tw`pt-4`}>
@@ -66,7 +69,7 @@ export default function Home({ navigation }) {
               style={{ width: 60, height: 60, resizeMode: "contain" }}
             />
           </View>
-          {!currentUser && (
+          {!user && (
             <TouchableOpacity
               style={tw`px-2`}
               onPress={() => {
@@ -79,17 +82,14 @@ export default function Home({ navigation }) {
               />
             </TouchableOpacity>
           )}
-          {currentUser && (
+          {user && (
             <TouchableOpacity
               style={tw`px-2`}
               onPress={() => {
                 setVisible(true);
               }}
             >
-              <Image
-                source={{ uri: currentUser.details.img }}
-                style={styles.avatar}
-              />
+              <Image source={{ uri: user.details.img }} style={styles.avatar} />
             </TouchableOpacity>
           )}
         </View>
