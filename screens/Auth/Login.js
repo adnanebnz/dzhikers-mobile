@@ -34,16 +34,16 @@ export default function Login({ navigation }) {
     <SafeAreaView>
       <View
         style={{
-          ...tw`mt-38`,
+          ...tw`mt-50`,
         }}
       >
-        <View style={tw`flex flex-row items-center justify-center gap-1`}>
-          <Text style={tw`text-black text-xl font-bold`}>DZHIKERS</Text>
+        <View style={tw`flex flex-row items-center justify-center gap-1 mb-3`}>
+          <Text style={tw`text-black text-2xl font-bold`}>DZHIKERS</Text>
           <Image
             source={require("./../../assets/noback.png")}
             style={{
-              width: 60,
-              height: 60,
+              width: 70,
+              height: 70,
               resizeMode: "contain",
             }}
           />
@@ -51,8 +51,8 @@ export default function Login({ navigation }) {
         <View style={tw`flex flex-col items-center justify-center gap-2`}>
           <TextInput
             style={{
-              ...tw`border-2 border-gray-300 rounded-lg px-2 py-2`,
-              width: "80%",
+              ...tw`border-2 border-gray-300 rounded-lg px-2 py-3 text-lg`,
+              width: "85%",
             }}
             placeholder="Email"
             value={email}
@@ -60,8 +60,8 @@ export default function Login({ navigation }) {
           />
           <TextInput
             style={{
-              ...tw`border-2 border-gray-300 rounded-lg px-2 py-2`,
-              width: "80%",
+              ...tw`border-2 border-gray-300 rounded-lg px-2 py-3 text-lg`,
+              width: "85%",
             }}
             placeholder="Password"
             secureTextEntry
@@ -70,8 +70,8 @@ export default function Login({ navigation }) {
           />
           <TouchableOpacity
             style={{
-              ...tw`bg-blue-500 rounded-lg px-2 py-2 mt-2`,
-              width: "80%",
+              ...tw`bg-blue-500 rounded-lg px-2 py-2 mt-3`,
+              width: "85%",
             }}
             onPress={handleLogin}
           >
@@ -80,7 +80,45 @@ export default function Login({ navigation }) {
                 ...tw`text-white text-center font-bold text-lg`,
               }}
             >
-              Login
+              Se connecter
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            ...tw`flex flex-row items-center gap-10 justify-center mt-1`,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              ...tw`mt-3`,
+            }}
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text
+              style={{
+                ...tw`text-center text-blue-500 font-bold`,
+              }}
+            >
+              Mot de passe oublié?
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...tw`mt-3`,
+            }}
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text
+              style={{
+                ...tw`text-center text-blue-500 font-bold`,
+              }}
+            >
+              Vous n'avez pas de compte?
             </Text>
           </TouchableOpacity>
         </View>

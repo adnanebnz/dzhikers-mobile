@@ -15,7 +15,6 @@ import { Menu, Divider, Provider } from "react-native-paper";
 import useFetchUser from "../../hooks/useFetchUser";
 import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
 
 export default function Home({ navigation }) {
   const [visible, setVisible] = useState(false);
