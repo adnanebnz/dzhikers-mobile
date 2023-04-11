@@ -49,9 +49,7 @@ export default function Home({ navigation }) {
         anchorPosition="top right"
       >
         <Menu.Item
-          onPress={() => {
-            //handle disonnect api call plus clear storage
-          }}
+          //TODO
           title="Profile"
         />
         <Divider />
