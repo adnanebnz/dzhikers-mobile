@@ -16,6 +16,8 @@ import { makeRequest } from "../../makeRequest";
 import tw from "twrnc";
 import moment from "moment/moment";
 import { IconButton, Icon, Center, NativeBaseProvider } from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function Details({ route, navigation }) {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);

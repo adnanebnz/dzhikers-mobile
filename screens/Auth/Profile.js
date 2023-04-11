@@ -3,7 +3,6 @@ import {
   Text,
   ActivityIndicator,
   Image,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import tw from "twrnc";
