@@ -5,10 +5,12 @@ import tw from "twrnc";
 import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
+import { ScrollView } from "react-native";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const handleLogin = async () => {
     try {
       setLoading(true);
@@ -23,16 +25,17 @@ export default function Login({ navigation }) {
         }
       );
       await AsyncStorage.setItem("currentUser", JSON.stringify(res.data));
+      setError("");
+      navigation.navigate("Root");
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.message);
     }
     setLoading(false);
-    navigation.navigate("Root");
   };
 
   return (
     <SafeAreaView>
-      <View
+      <ScrollView
         style={{
           ...tw`mt-50`,
         }}
@@ -122,7 +125,22 @@ export default function Login({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+        {error && (
+          <View
+            style={{
+              ...tw`flex flex-row items-center justify-center mt-5`,
+            }}
+          >
+            <Text
+              style={{
+                ...tw`text-red-500 font-bold`,
+              }}
+            >
+              {error}
+            </Text>
+          </View>
+        )}
+      </ScrollView>
       {loading && (
         <View
           style={{
