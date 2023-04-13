@@ -23,11 +23,10 @@ export default function Profile({ navigation }) {
       }
     }, 1000);
   }, [userLoading]);
-
   useEffect(() => {
-    const fetchReservations = async () => {
+    const fetchReservations = () => {
       try {
-        if (loading === false) {
+        setTimeout(async () => {
           const res = await makeRequest.get(
             `/reservations/${user.details._id}`,
             {
@@ -35,14 +34,14 @@ export default function Profile({ navigation }) {
             }
           );
           setReservations(res.data);
-        }
+        }, 100);
       } catch (err) {
         console.log(err);
       }
     };
     fetchReservations();
-  }, [loading]);
-  console.log("y");
+  }, []);
+  console.log(reservations);
   return (
     <SafeAreaView>
       {loading ? (

@@ -8,8 +8,8 @@ const useFetchUser = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      setUserLoading(true);
       try {
-        setUserLoading(true);
         const user = await AsyncStorage.getItem("currentUser");
         setUser(JSON.parse(user));
       } catch (err) {
