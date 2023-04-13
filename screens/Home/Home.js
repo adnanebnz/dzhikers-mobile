@@ -9,18 +9,21 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import { Menu, Divider, Provider } from "react-native-paper";
+import { Menu, Divider, Provider, Badge } from "react-native-paper";
 import useFetchUser from "../../hooks/useFetchUser";
 import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home({ navigation }) {
   const [visible, setVisible] = useState(false);
   const { user, userLoading, error } = useFetchUser();
   const closeMenu = () => setVisible(false);
   const [searchText, setSearchText] = useState("");
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
   const handleClear = () => {
     setSearchText("");
   };
@@ -77,29 +80,62 @@ export default function Home({ navigation }) {
               style={{ width: 60, height: 60, resizeMode: "contain" }}
             />
           </View>
-          {!user && (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              alignItems: "center",
+              gap: 5,
+            }}
+          >
+            {!user && (
+              <TouchableOpacity
+                style={tw`px-2`}
+                onPress={() => {
+                  navigation.navigate("Login");
+                }}
+              >
+                <Image
+                  source={require("../../assets/noavatar.png")}
+                  style={styles.avatar}
+                />
+              </TouchableOpacity>
+            )}
+            {user && (
+              <TouchableOpacity
+                style={tw`px-2`}
+                onPress={() => {
+                  setVisible(true);
+                }}
+              >
+                <Image
+                  source={{ uri: user.details.img }}
+                  style={styles.avatar}
+                />
+              </TouchableOpacity>
+            )}
             <TouchableOpacity
               style={tw`px-2`}
               onPress={() => {
-                navigation.navigate("Login");
+                navigation.navigate("Panier");
               }}
             >
-              <Image
-                source={require("../../assets/noavatar.png")}
-                style={styles.avatar}
+              <View
+                style={{
+                  position: "absolute",
+                  top: -13,
+                  right: -5,
+                }}
+              >
+                {cart.length > 0 && <Badge>{cart.length}</Badge>}
+              </View>
+              <MaterialCommunityIcons
+                name="shopping-outline"
+                size={24}
+                color="black"
               />
             </TouchableOpacity>
-          )}
-          {user && (
-            <TouchableOpacity
-              style={tw`px-2`}
-              onPress={() => {
-                setVisible(true);
-              }}
-            >
-              <Image source={{ uri: user.details.img }} style={styles.avatar} />
-            </TouchableOpacity>
-          )}
+          </View>
         </View>
         <View style={tw`mt-1 px-3`}>
           <View>

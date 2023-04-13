@@ -51,26 +51,6 @@ const BookingListing = ({ navigation, route }) => {
         </View>
       ) : (
         <View>
-          <View
-            style={{
-              ...tw`py-4 px-3 mt-7 flex flex-row items-center justify-between`,
-            }}
-          >
-            <View
-              style={{
-                alignSelf: "flex-start",
-              }}
-            >
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Ionicons name="chevron-back" size={28} color="black" />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text style={tw`text-lg font-medium`}>Mes réservations</Text>
-            </View>
-            <View></View>
-          </View>
-
           <View style={tw`bg-white h-full p-3`}>
             {data.length === 0 ? (
               <View style={tw`flex items-center justify-center mt-5`}>

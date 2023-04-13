@@ -49,6 +49,7 @@ export default function Root({ navigation }) {
             borderRadius: 15,
             height: 90,
           },
+          tabBarHideOnKeyboard: true,
         }}
       >
         <Tab.Screen
@@ -112,6 +113,8 @@ export default function Root({ navigation }) {
                 </Text>
               </View>
             ),
+            headerShown: true,
+            headerTitle: "Boutique",
           }}
         />
         <Tab.Screen

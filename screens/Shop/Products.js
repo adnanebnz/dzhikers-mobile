@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  SafeAreaView,
+  ScrollViewBase,
 } from "react-native";
 import tw from "twrnc";
 import React, { useState, useEffect } from "react";
@@ -27,8 +27,12 @@ const Products = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <ScrollView
+      style={{
+        maxHeight: "80%",
+      }}
+    >
+      <View>
         {products.map((product) => (
           <TouchableOpacity
             key={product._id}
@@ -36,51 +40,77 @@ const Products = ({ navigation }) => {
           >
             <View
               style={{
+                display: "flex",
                 flexDirection: "row",
+                flexWrap: "wrap",
                 alignItems: "center",
-                justifyContent: "space-between",
+                gap: 10,
+                ...tw`bg-gray-200 px-2 py-3 rounded-lg mb-3`,
               }}
             >
               <Image
-                source={{ uri: product.img3 }}
+                source={{
+                  uri: product.img3,
+                }}
                 style={{
-                  width: 100,
-                  height: 100,
+                  width: 120,
+                  height: 120,
                   borderRadius: 10,
                   resizeMode: "cover",
+                  borderRadius: 10,
                 }}
               />
-              <View>
+              <View
+                style={{
+                  ...tw`flex flex-col  gap-1`,
+                }}
+              >
                 <Text
                   style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
+                    ...tw`text-[16px] font-bold`,
                   }}
                 >
                   {product.title}
                 </Text>
-                <Text
+                {product.quantity === 0 ? (
+                  <Text
+                    style={{
+                      ...tw`text-[14px] font-bold text-red-500`,
+                    }}
+                  >
+                    En rupture de stock
+                  </Text>
+                ) : (
+                  <>
+                    <Text
+                      style={{
+                        ...tw`text-[14px] font-bold text-green-500`,
+                      }}
+                    >
+                      En Stock : {product.quantity}
+                    </Text>
+                  </>
+                )}
+
+                <View
                   style={{
-                    color: "#777",
-                    fontSize: 16,
+                    ...tw` text-[14px] bg-gray-300 rounded-lg px-2 py-1 w-20`,
                   }}
                 >
-                  {product.desc}
-                </Text>
+                  <Text
+                    style={{
+                      ...tw`text-blue-500 font-bold`,
+                    }}
+                  >
+                    {product.price} DZD
+                  </Text>
+                </View>
               </View>
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: "bold",
-                }}
-              >
-                {product.price} DZD
-              </Text>
             </View>
           </TouchableOpacity>
         ))}
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 };
 

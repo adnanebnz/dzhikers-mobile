@@ -26,32 +26,12 @@ export default function Profile({ navigation }) {
   return (
     <SafeAreaView>
       {loading ? (
-        <View style={tw`flex items-center justify-center h-full`}>
+        <View style={tw`flex items-center justify-center`}>
           <ActivityIndicator size="large" />
         </View>
       ) : (
         <View>
-          <View
-            style={{
-              ...tw`py-4 px-3  flex flex-row items-center justify-between`,
-            }}
-          >
-            <View
-              style={{
-                alignSelf: "flex-start",
-              }}
-            >
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Ionicons name="chevron-back" size={28} color="black" />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text style={tw`text-lg font-medium`}>Profile</Text>
-            </View>
-            <View></View>
-          </View>
-
-          <View style={tw`bg-white p-3`}>
+          <View style={tw`p-3`}>
             <View style={tw`flex-row items-center justify-between`}>
               <View style={tw`flex-row items-center`}>
                 <Image
