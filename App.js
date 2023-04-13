@@ -8,6 +8,7 @@ import Details from "./screens/Randos/Details";
 import Profile from "./screens/Auth/Profile";
 import BookingListing from "./screens/overview/BookingListing";
 import PurchasedProducts from "./screens/overview/PurchasedProducts";
+import Product from "./screens/Shop/Product";
 const Stack = createNativeStackNavigator();
 
 export default function App({ navigation }) {
@@ -82,6 +83,13 @@ export default function App({ navigation }) {
         <Stack.Screen
           name="BookingListing"
           component={BookingListing}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Product"
+          component={Product}
           options={{
             headerShown: false,
           }}

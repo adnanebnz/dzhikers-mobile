@@ -3,67 +3,83 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Text,
   SafeAreaView,
 } from "react-native";
+import tw from "twrnc";
 import React, { useState, useEffect } from "react";
+import { makeRequest } from "../../makeRequest";
 const Products = ({ navigation }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {});
+    const unsubscribe = navigation.addListener("focus", async () => {
+      try {
+        const res = await makeRequest.get(
+          "/items?category=all&page=1&min=0&max=1000000"
+        );
+        setProducts(res.data.items);
+      } catch (err) {
+        console.log(err);
+      }
+    });
 
     return unsubscribe;
   }, [navigation]);
-
-  //create an product reusable card
-
-  const ProductCard = ({ data }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate("ProductInfo", { productID: "" })}
-        style={{
-          width: "48%",
-          marginVertical: 14,
-        }}
-      >
-        <View
-          style={{
-            width: "100%",
-            height: 100,
-            borderRadius: 10,
-            backgroundColor: COLOURS.backgroundLight,
-            position: "relative",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: 8,
-          }}
-        >
-          <Image
-            source={{
-              uri: "",
-            }}
-            style={{
-              width: "80%",
-              height: "80%",
-              resizeMode: "contain",
-            }}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
-    <SafeAreaView
-      style={{
-        marginTop: 30,
-      }}
-    >
-      <ScrollView
-        style={{
-          paddingHorizontal: 20,
-        }}
-      ></ScrollView>
+    <SafeAreaView>
+      <ScrollView>
+        {products.map((product) => (
+          <TouchableOpacity
+            key={product._id}
+            onPress={() => navigation.navigate("Product", { id: product._id })}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Image
+                source={{ uri: product.img3 }}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 10,
+                  resizeMode: "cover",
+                }}
+              />
+              <View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {product.title}
+                </Text>
+                <Text
+                  style={{
+                    color: "#777",
+                    fontSize: 16,
+                  }}
+                >
+                  {product.desc}
+                </Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                }}
+              >
+                {product.price} DZD
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
