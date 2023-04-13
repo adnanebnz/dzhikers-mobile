@@ -11,10 +11,9 @@ import { Ionicons } from "@expo/vector-icons";
 import useFetchUser from "../../hooks/useFetchUser";
 import { useState } from "react";
 import { useEffect } from "react";
-import { makeRequest } from "../../makeRequest";
+import { Button } from "react-native";
 export default function Profile({ navigation }) {
   const { user, userLoading, error } = useFetchUser();
-  const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -23,25 +22,7 @@ export default function Profile({ navigation }) {
       }
     }, 1000);
   }, [userLoading]);
-  useEffect(() => {
-    const fetchReservations = () => {
-      try {
-        setTimeout(async () => {
-          const res = await makeRequest.get(
-            `/reservations/${user.details._id}`,
-            {
-              withCredentials: true,
-            }
-          );
-          setReservations(res.data);
-        }, 100);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchReservations();
-  }, []);
-  console.log(reservations);
+
   return (
     <SafeAreaView>
       {loading ? (
@@ -50,10 +31,24 @@ export default function Profile({ navigation }) {
         </View>
       ) : (
         <View>
-          <View style={tw`flex-row items-center p-4`}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Ionicons name="chevron-back" size={28} color="black" />
-            </TouchableOpacity>
+          <View
+            style={{
+              ...tw`py-4 px-3  flex flex-row items-center justify-between`,
+            }}
+          >
+            <View
+              style={{
+                alignSelf: "flex-start",
+              }}
+            >
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Ionicons name="chevron-back" size={28} color="black" />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={tw`text-lg font-medium`}>Profile</Text>
+            </View>
+            <View></View>
           </View>
 
           <View style={tw`bg-white p-3`}>
@@ -85,35 +80,23 @@ export default function Profile({ navigation }) {
                 {user.details.age}
               </Text>
             </View>
-            <View style={tw`mt-5 h-full`}>
-              <Text style={tw`text-lg font-semibold text-center`}>
-                Mes achats et réservations
-              </Text>
-            </View>
-            <View
-              style={tw`flex flex-row flex-wrap justify-center items-center`}
-            >
-              {reservations.map((reservation) => (
-                <View style={tw`m-2  rounded-xl`} key={reservation._id}>
-                  <View style={tw`flex flex-row justify-between items-center`}>
-                    <Text style={tw`font-bold text-lg ml-2`}>
-                      {reservation.title}
-                    </Text>
-                    <View style={tw`rounded-full bg-gray-200 p-2 mr-2`}>
-                      <Ionicons name="pencil-outline" size={24} color="gray" />
-                    </View>
-                  </View>
-
-                  <View style={tw`flex flex-row justify-between items-center`}>
-                    <Text style={tw`font-bold text-lg ml-2`}>
-                      {reservation.date}
-                    </Text>
-                    <Text style={tw`font-bold text-lg mr-2`}>
-                      {reservation.price} DZD
-                    </Text>
-                  </View>
-                </View>
-              ))}
+            <View style={tw`mt-20 h-full flex flex-col gap-5`}>
+              <Button
+                title="Voir mes reservations"
+                onPress={() =>
+                  navigation.navigate("BookingListing", {
+                    id: user.details._id,
+                  })
+                }
+              />
+              <Button
+                title="Voir mes achats"
+                onPress={() =>
+                  navigation.navigate("PurchasedProducts", {
+                    id: user.details._id,
+                  })
+                }
+              />
             </View>
           </View>
         </View>

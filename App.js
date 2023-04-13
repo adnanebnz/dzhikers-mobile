@@ -6,6 +6,8 @@ import Login from "./screens/Auth/Login";
 import Register from "./screens/Auth/Register";
 import Details from "./screens/Randos/Details";
 import Profile from "./screens/Auth/Profile";
+import BookingListing from "./screens/overview/BookingListing";
+import PurchasedProducts from "./screens/overview/PurchasedProducts";
 const Stack = createNativeStackNavigator();
 
 export default function App({ navigation }) {
@@ -66,6 +68,20 @@ export default function App({ navigation }) {
         <Stack.Screen
           name="Profile"
           component={Profile}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="PurchasedProducts"
+          component={PurchasedProducts}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="BookingListing"
+          component={BookingListing}
           options={{
             headerShown: false,
           }}

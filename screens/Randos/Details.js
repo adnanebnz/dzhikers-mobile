@@ -22,7 +22,8 @@ export default function Details({ route, navigation }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [participants, setParticipants] = useState([]);
-  const { user, userLoading, error } = useFetchUser();
+  const { user } = useFetchUser();
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchPin = async () => {
       try {
@@ -48,7 +49,7 @@ export default function Details({ route, navigation }) {
   }, []);
   const handleBooking = async () => {
     try {
-      const res = await makeRequest.post(
+      await makeRequest.post(
         `/reservations/${id}/register`,
         {
           hikeId: id,
@@ -67,7 +68,7 @@ export default function Details({ route, navigation }) {
         { withCredentials: true }
       );
     } catch (err) {
-      console.log(err);
+      setError(err.response.data.message);
     }
   };
 
@@ -168,24 +169,22 @@ export default function Details({ route, navigation }) {
 
                 <Text style={tw`text-gray-700`}>{data.desc}</Text>
                 <View style={tw`pt-6`}>
-                  {participants.filter(
-                    (participant) => participant.userId === user.details._id
-                  ) ? (
-                    <View
-                      style={tw`
-                    bg-gray-200 h-auto w-full px-2 py-2 rounded-xl flex flex-row items-center justify-center
-                    `}
-                    >
-                      <Text
-                        style={tw`text-center text-gray-700 text-lg font-semibold`}
-                      >
-                        Vous êtes inscrit à cette randonnée!
-                      </Text>
-                    </View>
-                  ) : (
-                    <Button title="Réserver" onPress={handleBooking} />
-                  )}
+                  <Button title="Réserver" onPress={handleBooking} />
                 </View>
+                {error && (
+                  <View style={tw`px-1 py-3 mt-2 rounded-lg bg-gray-200`}>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontWeight: "500",
+                        fontSize: 15,
+                        textAlign: "center",
+                      }}
+                    >
+                      {error}
+                    </Text>
+                  </View>
+                )}
               </View>
             </ScrollView>
           </>

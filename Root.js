@@ -3,7 +3,7 @@ import Home from "./screens/Home/Home";
 import Settings from "./screens/Settings/Settings";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import Notifs from "./screens/notifs/Notifs";
-import Contact from "./screens/Contact/Contact";
+import Products from "./screens/Shop/Products";
 import MapViewer from "./screens/map/MapViewer";
 import { Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
@@ -85,8 +85,8 @@ export default function Root({ navigation }) {
           }}
         />
         <Tab.Screen
-          name="Cart"
-          component={Contact}
+          name="Boutique"
+          component={Products}
           options={{
             tabBarIcon: ({ focused }) => (
               <View
@@ -96,22 +96,19 @@ export default function Root({ navigation }) {
                   top: 10,
                 }}
               >
-                <Image
-                  source={require("./assets/bag.png")}
-                  resizeMode="contain"
-                  style={{
-                    width: 25,
-                    height: 25,
-                    tintColor: focused ? "#2563eb" : "#748c94",
-                  }}
+                <Ionicons
+                  name="cart-outline"
+                  size={24}
+                  color={focused ? "#2563eb" : "#748c94"}
                 />
+
                 <Text
                   style={{
                     color: focused ? "#2563eb" : "#748c94",
                     fontSize: 12,
                   }}
                 >
-                  Panier
+                  Boutique
                 </Text>
               </View>
             ),
