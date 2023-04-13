@@ -17,8 +17,6 @@ import { SliderBox } from "react-native-image-slider-box/dist";
 import { useDispatch } from "react-redux";
 import { addToCart } from "./../../state";
 const Product = ({ navigation, route }) => {
-  //TODO LOADER
-
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -42,14 +40,25 @@ const Product = ({ navigation, route }) => {
     <NativeBaseProvider>
       <SafeAreaView>
         {loading && (
-          <ActivityIndicator
-            size="large"
+          <View
             style={{
-              marginTop: 20,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              width: "100%",
             }}
-          />
+          >
+            <ActivityIndicator
+              size="large"
+              style={{
+                marginTop: 20,
+              }}
+            />
+          </View>
         )}
-        {data && (
+        {!loading && (
           <ScrollView
             ContentContainerstyle={{
               display: "flex",
