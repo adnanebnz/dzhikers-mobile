@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
+import Payment from "./screens/Shop/Payment";
 const Stack = createNativeStackNavigator();
 const store = configureStore({
   reducer: {
@@ -109,6 +110,13 @@ export default function App({ navigation }) {
           <Stack.Screen
             name="Panier"
             component={Cart}
+            options={{
+              headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="Payment"
+            component={Payment}
             options={{
               headerShown: true,
             }}

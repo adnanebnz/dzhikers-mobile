@@ -7,14 +7,15 @@ import {
   decreaseCount,
   increaseCount,
   removeFromCart,
-  setIsCartOpen,
   clearCart,
 } from "../../state";
 import { useDispatch, useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Icon, IconButton, NativeBaseProvider } from "native-base";
-export default function Cart() {
+import { Button } from "react-native";
+
+export default function Cart({ navigation }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
@@ -163,6 +164,21 @@ export default function Cart() {
                   </View>
                 ))}
               </View>
+              <View>
+                <Text
+                  style={{
+                    ...tw`text-xl font-bold mt-5 mb-3`,
+                  }}
+                >
+                  Total: {totalPrice} DZD
+                </Text>
+              </View>
+              <Button
+                title="PAYER"
+                onPress={() => {
+                  navigation.navigate("Payment");
+                }}
+              />
             </View>
           ) : (
             <>
