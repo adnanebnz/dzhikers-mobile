@@ -42,18 +42,29 @@ export default function Home({ navigation }) {
         onDismiss={closeMenu}
         anchor={{
           x: 350,
-          y: 100,
+          y: 80,
           width: 0,
           height: 0,
         }}
         anchorPosition="top right"
       >
         <Menu.Item
-          //TODO
+          onPress={() => {
+            navigation.navigate("Profile");
+          }}
+          leadingIcon={() => (
+            <Ionicons name="person" size={24} color="#6b7280" />
+          )}
           title="Profile"
         />
         <Divider />
-        <Menu.Item onPress={handleDisconnect} title="Deconnecter" />
+        <Menu.Item
+          onPress={handleDisconnect}
+          leadingIcon={() => (
+            <Ionicons name="log-out" size={24} color="#6b7280" />
+          )}
+          title="Deconnecter"
+        />
       </Menu>
 
       <SafeAreaView style={tw`pt-4`}>

@@ -25,6 +25,7 @@ export default function Login({ navigation }) {
         }
       );
       await AsyncStorage.setItem("currentUser", JSON.stringify(res.data));
+
       setError("");
       navigation.navigate("Root");
     } catch (error) {
@@ -89,7 +90,7 @@ export default function Login({ navigation }) {
         </View>
         <View
           style={{
-            ...tw`flex flex-row items-center gap-10 justify-center mt-1`,
+            ...tw`flex flex-row items-center gap-4 justify-center mt-1`,
           }}
         >
           <TouchableOpacity

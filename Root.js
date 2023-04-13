@@ -5,7 +5,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import Notifs from "./screens/notifs/Notifs";
 import Contact from "./screens/Contact/Contact";
 import MapViewer from "./screens/map/MapViewer";
-
+import { Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 export default function Root({ navigation }) {
@@ -149,14 +149,10 @@ export default function Root({ navigation }) {
                   top: 10,
                 }}
               >
-                <Image
-                  source={require("./assets/settings.png")}
-                  resizeMode="contain"
-                  style={{
-                    width: 25,
-                    height: 25,
-                    tintColor: focused ? "#2563eb" : "#748c94",
-                  }}
+                <Ionicons
+                  name="settings-outline"
+                  size={24}
+                  color={focused ? "#2563eb" : "#748c94"}
                 />
                 <Text
                   style={{
@@ -182,14 +178,10 @@ export default function Root({ navigation }) {
                   top: 10,
                 }}
               >
-                <Image
-                  source={require("./assets/notif.png")}
-                  resizeMode="contain"
-                  style={{
-                    width: 25,
-                    height: 25,
-                    tintColor: focused ? "#2563eb" : "#748c94",
-                  }}
+                <Ionicons
+                  name="notifications-outline"
+                  size={24}
+                  color={focused ? "#2563eb" : "#748c94"}
                 />
                 <Text
                   style={{
