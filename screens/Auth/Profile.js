@@ -11,8 +11,10 @@ import { Ionicons } from "@expo/vector-icons";
 import useFetchUser from "../../hooks/useFetchUser";
 import { useState } from "react";
 import { useEffect } from "react";
+import { makeRequest } from "../../makeRequest";
 export default function Profile({ navigation }) {
   const { user, userLoading, error } = useFetchUser();
+  const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -21,6 +23,26 @@ export default function Profile({ navigation }) {
       }
     }, 1000);
   }, [userLoading]);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        if (loading === false) {
+          const res = await makeRequest.get(
+            `/reservations/${user.details._id}`,
+            {
+              withCredentials: true,
+            }
+          );
+          setReservations(res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchReservations();
+  }, [loading]);
+  console.log("y");
   return (
     <SafeAreaView>
       {loading ? (
@@ -68,6 +90,31 @@ export default function Profile({ navigation }) {
               <Text style={tw`text-lg font-semibold text-center`}>
                 Mes achats et réservations
               </Text>
+            </View>
+            <View
+              style={tw`flex flex-row flex-wrap justify-center items-center`}
+            >
+              {reservations.map((reservation) => (
+                <View style={tw`m-2  rounded-xl`} key={reservation._id}>
+                  <View style={tw`flex flex-row justify-between items-center`}>
+                    <Text style={tw`font-bold text-lg ml-2`}>
+                      {reservation.title}
+                    </Text>
+                    <View style={tw`rounded-full bg-gray-200 p-2 mr-2`}>
+                      <Ionicons name="pencil-outline" size={24} color="gray" />
+                    </View>
+                  </View>
+
+                  <View style={tw`flex flex-row justify-between items-center`}>
+                    <Text style={tw`font-bold text-lg ml-2`}>
+                      {reservation.date}
+                    </Text>
+                    <Text style={tw`font-bold text-lg mr-2`}>
+                      {reservation.price} DZD
+                    </Text>
+                  </View>
+                </View>
+              ))}
             </View>
           </View>
         </View>

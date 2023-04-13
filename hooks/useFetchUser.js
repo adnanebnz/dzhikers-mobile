@@ -15,9 +15,7 @@ const useFetchUser = () => {
       } catch (err) {
         setError(true);
       }
-      setTimeout(() => {
-        setUserLoading(false);
-      }, 2000);
+      setUserLoading(false);
     };
     fetchUser();
   }, []);

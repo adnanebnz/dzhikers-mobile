@@ -17,11 +17,11 @@ import tw from "twrnc";
 import moment from "moment/moment";
 import { IconButton, Icon, NativeBaseProvider } from "native-base";
 import useFetchUser from "../../hooks/useFetchUser";
-
 export default function Details({ route, navigation }) {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [participants, setParticipants] = useState([]);
   const { user, userLoading, error } = useFetchUser();
   useEffect(() => {
     const fetchPin = async () => {
@@ -33,6 +33,17 @@ export default function Details({ route, navigation }) {
       }
       setLoading(false);
     };
+    const fetchReservation = async () => {
+      const res = await makeRequest.get(`/reservations/${id}/details`, {
+        withCredentials: true,
+      });
+      setParticipants(res.data.participants);
+      try {
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchReservation();
     fetchPin();
   }, []);
   const handleBooking = async () => {
@@ -157,7 +168,23 @@ export default function Details({ route, navigation }) {
 
                 <Text style={tw`text-gray-700`}>{data.desc}</Text>
                 <View style={tw`pt-6`}>
-                  <Button title="Réserver" onPress={handleBooking} />
+                  {participants.filter(
+                    (participant) => participant.userId === user.details._id
+                  ) ? (
+                    <View
+                      style={tw`
+                    bg-gray-200 h-auto w-full px-2 py-2 rounded-xl flex flex-row items-center justify-center
+                    `}
+                    >
+                      <Text
+                        style={tw`text-center text-gray-700 text-lg font-semibold`}
+                      >
+                        Vous êtes inscrit à cette randonnée!
+                      </Text>
+                    </View>
+                  ) : (
+                    <Button title="Réserver" onPress={handleBooking} />
+                  )}
                 </View>
               </View>
             </ScrollView>
