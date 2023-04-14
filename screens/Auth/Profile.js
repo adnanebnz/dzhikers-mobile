@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import useFetchUser from "../../hooks/useFetchUser";
 import { useState } from "react";
 import { useEffect } from "react";
+import { StatusBar } from "react-native";
 export default function Profile({ navigation }) {
   const { user, userLoading, error } = useFetchUser();
   const [loading, setLoading] = useState(true);
@@ -120,6 +121,7 @@ export default function Profile({ navigation }) {
           </View>
         </View>
       )}
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
