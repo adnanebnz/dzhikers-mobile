@@ -6,6 +6,7 @@ import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native";
+import { StatusBar } from "native-base";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -151,6 +152,7 @@ export default function Login({ navigation }) {
           <ActivityIndicator size="large" />
         </View>
       )}
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }

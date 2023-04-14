@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { makeRequest } from "../../makeRequest";
 import { Text, View, Button, ActivityIndicator } from "react-native";
 import tw from "twrnc";
+import { StatusBar } from "react-native";
 export default function MapViewer({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [pins, setPins] = useState([]);
@@ -71,6 +72,7 @@ export default function MapViewer({ navigation }) {
           </MapView>
         </>
       )}
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }

@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import { makeRequest } from "../../makeRequest";
 import tw from "twrnc";
-import { IconButton, Icon, NativeBaseProvider } from "native-base";
+import { IconButton, Icon, NativeBaseProvider, StatusBar } from "native-base";
 import { SliderBox } from "react-native-image-slider-box/dist";
 import { useDispatch } from "react-redux";
 import { addToCart } from "./../../state";
@@ -230,6 +230,7 @@ const Product = ({ navigation, route }) => {
           </ScrollView>
         )}
       </SafeAreaView>
+      <StatusBar style="auto" />
     </NativeBaseProvider>
   );
 };
