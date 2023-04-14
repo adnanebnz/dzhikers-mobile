@@ -4,7 +4,7 @@
     "slug": "dzhikers",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/noback.png",
+    "icon": "./assets/icon.jpg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
