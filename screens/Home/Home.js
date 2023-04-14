@@ -39,22 +39,7 @@ export default function Home({ navigation }) {
     navigation.navigate("Login");
   };
   return (
-    <Provider
-      theme={{
-        colors: {
-          primary: "#f9a825",
-          accent: "#f9a825",
-          background: "#ffffff",
-          surface: "#ffffff",
-          text: "#f9a825",
-          disabled: "#f9a825",
-          placeholder: "#f9a825",
-          backdrop: "#f9a825",
-          error: "#ff0000",
-          notification: "#ff0000",
-        },
-      }}
-    >
+    <Provider>
       <Menu
         visible={visible}
         onDismiss={closeMenu}

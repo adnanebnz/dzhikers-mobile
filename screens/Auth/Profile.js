@@ -26,7 +26,7 @@ export default function Profile({ navigation }) {
   return (
     <SafeAreaView>
       {loading ? (
-        <View style={tw`flex items-center justify-center`}>
+        <View style={tw`flex items-center justify-center h-full`}>
           <ActivityIndicator size="large" />
         </View>
       ) : (
