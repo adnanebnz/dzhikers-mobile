@@ -254,8 +254,8 @@ const Payment = ({ navigation }) => {
                   },
                 }}
               >
-                Votre commande est en cours de traitement. Vous voir son status
-                dans votre compte.
+                Votre commande est en cours de traitement. Vous pouvez voir son
+                status dans votre compte.
               </Box>
             </VStack>
           </Alert>

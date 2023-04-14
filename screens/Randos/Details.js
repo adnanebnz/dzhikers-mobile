@@ -5,6 +5,7 @@ import {
   Image,
   Button,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,7 +16,16 @@ import { useEffect, useState } from "react";
 import { makeRequest } from "../../makeRequest";
 import tw from "twrnc";
 import moment from "moment/moment";
-import { IconButton, Icon, NativeBaseProvider } from "native-base";
+import {
+  IconButton,
+  Icon,
+  NativeBaseProvider,
+  Alert,
+  VStack,
+  HStack,
+  CloseIcon,
+  Box,
+} from "native-base";
 import useFetchUser from "../../hooks/useFetchUser";
 export default function Details({ route, navigation }) {
   const { id } = route.params;
@@ -23,6 +33,7 @@ export default function Details({ route, navigation }) {
   const [data, setData] = useState([]);
   const [participants, setParticipants] = useState([]);
   const { user } = useFetchUser();
+  const [alert, setAlert] = useState(false);
   const [error, setError] = useState(null);
   useEffect(() => {
     const fetchPin = async () => {
@@ -67,6 +78,7 @@ export default function Details({ route, navigation }) {
         },
         { withCredentials: true }
       );
+      setAlert(true);
     } catch (err) {
       setError(err.response.data.message);
     }
@@ -132,7 +144,9 @@ export default function Details({ route, navigation }) {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  padding: 10,
+                  paddingTop: 10,
+                  paddingLeft: 10,
+                  paddingRight: 10,
                   marginTop: 10,
                 }}
               >
@@ -186,6 +200,55 @@ export default function Details({ route, navigation }) {
                   </View>
                 )}
               </View>
+              {alert && (
+                <Alert w="100%" mt="4" mb="6" status="success">
+                  <VStack space={2} flexShrink={1} w="100%">
+                    <HStack
+                      flexShrink={1}
+                      space={1}
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <HStack space={2} flexShrink={1} alignItems="center">
+                        <Alert.Icon />
+                        <Text
+                          fontSize="md"
+                          fontWeight="medium"
+                          _dark={{
+                            color: "coolGray.800",
+                          }}
+                        >
+                          Votre réservation a été enregistrée!
+                        </Text>
+                      </HStack>
+                      <TouchableOpacity>
+                        <IconButton
+                          variant="unstyled"
+                          _focus={{
+                            borderWidth: 0,
+                          }}
+                          icon={<CloseIcon size="4" />}
+                          _icon={{
+                            color: "coolGray.600",
+                          }}
+                          onPress={() => setAlert(false)}
+                        />
+                      </TouchableOpacity>
+                    </HStack>
+                    <Box
+                      pl="6"
+                      _dark={{
+                        _text: {
+                          color: "coolGray.600",
+                        },
+                      }}
+                    >
+                      Votre réservation est validée Vous pouvez voir son status
+                      dans votre compte.
+                    </Box>
+                  </VStack>
+                </Alert>
+              )}
             </ScrollView>
           </>
         )}
