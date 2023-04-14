@@ -25,6 +25,16 @@ const PurchasedProducts = ({ navigation, route }) => {
     });
     return unsubscribe;
   }, [navigation]);
+  const handleDelete = async (order) => {
+    setLoading(true);
+    try {
+      await makeRequest.delete(`/orders/${order}`);
+      setData(data.filter((item) => item._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
   return (
     <NativeBaseProvider>
       {loading && (
@@ -74,7 +84,11 @@ const PurchasedProducts = ({ navigation, route }) => {
                   </View>
                 </View>
                 <View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleDelete(item._id);
+                    }}
+                  >
                     <Ionicons name="trash-outline" size={30} color="red" />
                   </TouchableOpacity>
                 </View>
