@@ -29,7 +29,7 @@ const PurchasedProducts = ({ navigation, route }) => {
     setLoading(true);
     try {
       await makeRequest.delete(`/orders/${order}`);
-      setData(data.filter((item) => item._id !== id));
+      setData(data.filter((item) => item._id !== order));
     } catch (err) {
       console.log(err);
     }
@@ -57,6 +57,7 @@ const PurchasedProducts = ({ navigation, route }) => {
           {data.map((item) => (
             <View
               style={tw`rounded-lg p-2 m-2 border border-solid border-gray-300`}
+              key={item._id}
             >
               <View
                 style={{
@@ -102,7 +103,7 @@ const PurchasedProducts = ({ navigation, route }) => {
                 Produits :{" "}
               </Text>
               {item.products.map((product) => (
-                <>
+                <View key={product._id}>
                   <Text style={tw`font-semibold text-gray-700`}>
                     {product.title}
                   </Text>
@@ -111,7 +112,7 @@ const PurchasedProducts = ({ navigation, route }) => {
                   </Text>
                   <Text style={tw`font-semibold`}>Prix: {product.price}</Text>
                   {item.products.length > 1 && <Divider />}
-                </>
+                </View>
               ))}
               <View>
                 <View>

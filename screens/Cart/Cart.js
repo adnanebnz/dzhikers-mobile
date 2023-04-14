@@ -55,7 +55,7 @@ export default function Cart({ navigation }) {
                 }}
               >
                 {cart.map((item) => (
-                  <View>
+                  <View key={item._id}>
                     <View
                       key={item._id}
                       style={{
