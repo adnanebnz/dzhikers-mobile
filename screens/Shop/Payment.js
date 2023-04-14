@@ -3,7 +3,20 @@ import React from "react";
 import { makeRequest } from "../../makeRequest";
 import { useSelector, useDispatch } from "react-redux";
 import { ScrollView } from "react-native";
-import { Icon, NativeBaseProvider, TextField, Button } from "native-base";
+import {
+  Icon,
+  NativeBaseProvider,
+  TextField,
+  Button,
+  useToast,
+  Center,
+  Alert,
+  VStack,
+  HStack,
+  IconButton,
+  CloseIcon,
+  Box,
+} from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -11,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 
 import { clearCart } from "../../state";
+import { TouchableOpacity } from "react-native";
 const Payment = ({ navigation }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -28,7 +42,7 @@ const Payment = ({ navigation }) => {
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.price;
   }, 0);
-
+  const toast = useToast();
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
       try {
@@ -198,9 +212,53 @@ const Payment = ({ navigation }) => {
           </Text>
         )}
         {alert && (
-          <Text style={{ color: "green" }}>
-            Votre commande a été enregistrée avec succès
-          </Text>
+          <Alert w="100%" mt="4" status="success">
+            <VStack space={2} flexShrink={1} w="100%">
+              <HStack
+                flexShrink={1}
+                space={1}
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <HStack space={2} flexShrink={1} alignItems="center">
+                  <Alert.Icon />
+                  <Text
+                    fontSize="md"
+                    fontWeight="medium"
+                    _dark={{
+                      color: "coolGray.800",
+                    }}
+                  >
+                    Votre commande a été enregistrée!
+                  </Text>
+                </HStack>
+                <TouchableOpacity>
+                  <IconButton
+                    variant="unstyled"
+                    _focus={{
+                      borderWidth: 0,
+                    }}
+                    icon={<CloseIcon size="3" />}
+                    _icon={{
+                      color: "coolGray.600",
+                    }}
+                    onPress={() => setAlert(false)}
+                  />
+                </TouchableOpacity>
+              </HStack>
+              <Box
+                pl="6"
+                _dark={{
+                  _text: {
+                    color: "coolGray.600",
+                  },
+                }}
+              >
+                Votre commande est en cours de traitement. Vous voir son status
+                dans votre compte.
+              </Box>
+            </VStack>
+          </Alert>
         )}
       </ScrollView>
     </NativeBaseProvider>
