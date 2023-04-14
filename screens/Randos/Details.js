@@ -31,33 +31,22 @@ export default function Details({ route, navigation }) {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [participants, setParticipants] = useState([]);
   const { user } = useFetchUser();
   const [alert, setAlert] = useState(false);
   const [error, setError] = useState(null);
   useEffect(() => {
-    const fetchPin = async () => {
+    const unsubscribe = navigation.addListener("focus", async () => {
       try {
         const result = await makeRequest.get(`/pins/${id}`);
         setData(result.data);
       } catch (err) {
-        console.log(err);
+        setError(err);
       }
       setLoading(false);
-    };
-    const fetchReservation = async () => {
-      const res = await makeRequest.get(`/reservations/${id}/details`, {
-        withCredentials: true,
-      });
-      setParticipants(res.data.participants);
-      try {
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchReservation();
-    fetchPin();
-  }, []);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   const handleBooking = async () => {
     try {
       await makeRequest.post(
