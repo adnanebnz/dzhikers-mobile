@@ -17,7 +17,6 @@ import Payment from "./screens/Shop/Payment";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
-import { makeRequest } from "./makeRequest";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -60,12 +59,7 @@ async function registerForPushNotificationsAsync() {
     });
   }
 
-  return async () => {
-    const res = await makeRequest.post("/users/login", {
-      token: token,
-    });
-    console.log(res);
-  };
+  return token;
 }
 
 const Stack = createNativeStackNavigator();
