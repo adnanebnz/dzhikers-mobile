@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879128164097",
+    "project_id": "dzhikers-a4821",
+    "storage_bucket": "dzhikers-a4821.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879128164097:android:6baa0f9f09e96dca2bcd00",
+        "android_client_info": {
+          "package_name": "live.dzhikers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879128164097-vp88pcunhvmo9og8nlmiehl0nhbom174.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARaVt39-RY-kbMqTw9rHAc1MBPgiokpN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879128164097-vp88pcunhvmo9og8nlmiehl0nhbom174.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

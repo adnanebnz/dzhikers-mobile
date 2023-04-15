@@ -24,12 +24,13 @@ const store = configureStore({
 
 export default function App({ navigation }) {
   registerNNPushToken(7418, "yXXX1LjDXsGQ3yF6UbxayK");
+
   const { user, userLoading, error } = useFetchUser();
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {user ? (
+          {user !== null ? (
             <>
               <Stack.Screen
                 name="Root"

@@ -102,7 +102,7 @@ const Product = ({ navigation, route }) => {
               />
 
               <View
-                style={tw`absolute bottom-90 left-4 text-white text-lg font-semibold h-10 w-10 bg-gray-700 rounded-full flex justify-center items-center opacity-75`}
+                style={tw`absolute bottom-77 left-4 text-white text-lg font-semibold h-10 w-10 bg-gray-700 rounded-full flex justify-center items-center opacity-75`}
               >
                 <IconButton
                   icon={<Icon as={AntDesign} name="arrowleft" />}
