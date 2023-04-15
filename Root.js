@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home/Home";
 import Settings from "./screens/Settings/Settings";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import Notifs from "./screens/notifs/Notifs";
 import Products from "./screens/Shop/Products";
 import MapViewer from "./screens/map/MapViewer";
@@ -196,6 +196,7 @@ export default function Root({ navigation }) {
           }}
         />
       </Tab.Navigator>
+      <StatusBar animated={true} backgroundColor="#60a5fa" />
     </>
   );
 }

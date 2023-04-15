@@ -52,13 +52,19 @@ export default function MapViewer({ navigation }) {
               centerCoordinate={[3.3, 34.666667]}
             />
             {pins.map((pin) => (
-              <Mapbox.MarkerView
+              //show pin with description
+              <Mapbox.PointAnnotation
                 key={pin._id}
                 id={pin._id}
                 coordinate={[pin.long, pin.lat]}
+                onSelected={() => {
+                  navigation.navigate("Details", {
+                    id: pin._id,
+                  });
+                }}
               >
-                <Ionicons name="location" size={24} color="red" />
-              </Mapbox.MarkerView>
+                <Callout title={pin.title} subtitle={pin.desc} />
+              </Mapbox.PointAnnotation>
             ))}
           </Mapbox.MapView>
         </>

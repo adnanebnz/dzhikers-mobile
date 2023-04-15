@@ -152,7 +152,7 @@ export default function Login({ navigation }) {
           <ActivityIndicator size="large" />
         </View>
       )}
-      <StatusBar style="auto" />
+      <StatusBar animated={true} backgroundColor="#60a5fa" />
     </SafeAreaView>
   );
 }

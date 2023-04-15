@@ -18,7 +18,7 @@ export default function Settings() {
           Settings
         </Text>
       </View>
-      <StatusBar style="auto" />
+      <StatusBar animated={true} backgroundColor="#60a5fa" />
     </SafeAreaView>
   );
 }

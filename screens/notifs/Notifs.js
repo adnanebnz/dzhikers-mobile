@@ -18,7 +18,7 @@ export default function Notifs() {
           Notifs
         </Text>
       </View>
-      <StatusBar style="auto" />
+      <StatusBar animated={true} backgroundColor="#60a5fa" />
     </SafeAreaView>
   );
 }

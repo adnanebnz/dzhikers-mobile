@@ -52,8 +52,13 @@ export default function Profile({ navigation }) {
                   </Text>
                 </View>
               </View>
-              <TouchableOpacity style={tw`rounded-full bg-gray-200 p-2`}>
-                <Ionicons name="pencil-outline" size={24} color="gray" />
+              <TouchableOpacity
+                style={tw`rounded-full bg-gray-300 p-2`}
+                onPress={() =>
+                  navigation.navigate("EditProfile", { id: user.details._id })
+                }
+              >
+                <Ionicons name="pencil-outline" size={24} color="black" />
               </TouchableOpacity>
             </View>
 

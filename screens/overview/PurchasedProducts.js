@@ -51,7 +51,14 @@ const PurchasedProducts = ({ navigation, route }) => {
           <ActivityIndicator size="large" />
         </View>
       )}
-      {!loading && (
+      {data.length === 0 && !loading && (
+        <View style={tw`flex items-center justify-center mt-5`}>
+          <Text style={tw`text-[16px] font-medium`}>
+            Vous n'avez pas encore acheter des produits
+          </Text>
+        </View>
+      )}
+      {!loading && data.length > 0 && (
         <ScrollView style={tw`mt-4`}>
           <Text style={tw`text-2xl font-semibold px-4`}>Mes commandes</Text>
           {data.map((item) => (

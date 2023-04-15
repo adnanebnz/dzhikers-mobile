@@ -192,7 +192,7 @@ export default function Cart({ navigation }) {
             </>
           )}
         </ScrollView>
-        <StatusBar style="auto" />
+        <StatusBar animated={true} backgroundColor="#60a5fa" />
       </SafeAreaView>
     </NativeBaseProvider>
   );

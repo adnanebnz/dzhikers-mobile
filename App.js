@@ -14,6 +14,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
+import EditProfile from "./screens/Auth/EditProfile";
 const Stack = createNativeStackNavigator();
 const store = configureStore({
   reducer: {
@@ -119,6 +120,14 @@ export default function App({ navigation }) {
             component={Payment}
             options={{
               headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfile}
+            options={{
+              headerShown: true,
+              headerTitle: "Modifier mon profil",
             }}
           />
         </Stack.Navigator>

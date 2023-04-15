@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
@@ -182,6 +183,7 @@ export default function Register({ navigation }) {
           )}
         </ScrollView>
       </SafeAreaView>
+      <StatusBar animated={true} backgroundColor="#60a5fa" />
     </View>
   );
 }
