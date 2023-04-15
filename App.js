@@ -14,7 +14,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
-import registerNNPushToken from "native-notify";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
@@ -62,9 +61,10 @@ async function registerForPushNotificationsAsync() {
   }
 
   return async () => {
-    const res = await makeRequest.put("/api/users/push-token", {
+    const res = await makeRequest.post("/users/login", {
       token: token,
     });
+    console.log(res);
   };
 }
 
@@ -103,7 +103,6 @@ export default function App({ navigation }) {
     };
   }, []);
   const { user, userLoading, error } = useFetchUser();
-  registerNNPushToken(7418, "yXXX1LjDXsGQ3yF6UbxayK");
   return (
     <Provider store={store}>
       <NavigationContainer>
