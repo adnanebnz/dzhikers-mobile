@@ -1,7 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Root from "./Root";
-import useFetchUser from "./hooks/useFetchUser";
 import Login from "./screens/Auth/Login";
 import Register from "./screens/Auth/Register";
 import Details from "./screens/Randos/Details";
@@ -96,106 +95,133 @@ export default function App({ navigation }) {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-  const { user, userLoading, error } = useFetchUser();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await AsyncStorage.getItem("currentUser");
+        setUser(JSON.parse(user));
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    };
+    fetchUser();
+  }, []);
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {user !== null ? (
-            <>
-              <Stack.Screen
-                name="Root"
-                component={Root}
-                options={{
-                  headerShown: false,
-                }}
-              />
+      {loading ? (
+        <View
+          style={{
+            display: "flex",
+            height: "100%",
+            justifyContent: "center",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" />
+        </View>
+      ) : (
+        <NavigationContainer>
+          <Stack.Navigator>
+            {user !== null ? (
+              <>
+                <Stack.Screen
+                  name="Root"
+                  component={Root}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
 
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                  headerShown: false,
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="Root"
-                component={Root}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="Register"
-                component={Register}
-                options={{
-                  headerShown: false,
-                }}
-              />
-            </>
-          )}
-          <Stack.Screen
-            name="Details"
-            component={Details}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="PurchasedProducts"
-            component={PurchasedProducts}
-            options={{
-              headerShown: true,
-              headerTitle: "Produits achetés",
-            }}
-          />
-          <Stack.Screen
-            name="BookingListing"
-            component={BookingListing}
-            options={{
-              headerShown: true,
-              headerTitle: "Réservations",
-            }}
-          />
-          <Stack.Screen
-            name="Product"
-            component={Product}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Panier"
-            component={Cart}
-            options={{
-              headerShown: true,
-            }}
-          />
-          <Stack.Screen
-            name="Payment"
-            component={Payment}
-            options={{
-              headerShown: true,
-            }}
-          />
-          {/* <Stack.Screen
+                <Stack.Screen
+                  name="Register"
+                  component={Register}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Root"
+                  component={Root}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </>
+            )}
+
+            <Stack.Screen
+              name="Details"
+              component={Details}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="PurchasedProducts"
+              component={PurchasedProducts}
+              options={{
+                headerShown: true,
+                headerTitle: "Produits achetés",
+              }}
+            />
+            <Stack.Screen
+              name="BookingListing"
+              component={BookingListing}
+              options={{
+                headerShown: true,
+                headerTitle: "Réservations",
+              }}
+            />
+            <Stack.Screen
+              name="Product"
+              component={Product}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Panier"
+              component={Cart}
+              options={{
+                headerShown: true,
+              }}
+            />
+            <Stack.Screen
+              name="Payment"
+              component={Payment}
+              options={{
+                headerShown: true,
+              }}
+            />
+            {/* <Stack.Screen
             name="EditProfile"
             component={EditProfile}
             options={{
@@ -203,8 +229,9 @@ export default function App({ navigation }) {
               headerTitle: "Modifier mon profil",
             }}
           /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
+          </Stack.Navigator>
+        </NavigationContainer>
+      )}
     </Provider>
   );
 }
