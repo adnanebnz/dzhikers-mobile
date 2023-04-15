@@ -2,7 +2,7 @@
   "expo": {
     "name": "DZHIKERS",
     "slug": "dzhikers",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
@@ -11,10 +11,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "live.dzhikers"
+      "bundleIdentifier": "live.dzhikers",
+      "runtimeVersion": {
+        "policy": "sdkVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +27,8 @@
         "backgroundColor": "#ffffff"
       },
       "package": "live.dzhikers",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -41,6 +47,9 @@
           "RNMapboxMapsDownloadToken": "sk.eyJ1Ijoic2tpbGx6ZGV2IiwiYSI6ImNsZ2g1NXdzbzAxbzIzZHBjYjM3eGRlemwifQ.4WR2sgoLVslHem_HTZspag"
         }
       ]
-    ]
+    ],
+    "updates": {
+      "url": "https://u.expo.dev/55448471-ae3d-4137-9d50-0ffb397dc0dd"
+    }
   }
 }
