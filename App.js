@@ -18,6 +18,7 @@ import registerNNPushToken from "native-notify";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
+import { makeRequest } from "./makeRequest";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -60,7 +61,11 @@ async function registerForPushNotificationsAsync() {
     });
   }
 
-  return token;
+  return async () => {
+    const res = await makeRequest.put("/api/users/push-token", {
+      token: token,
+    });
+  };
 }
 
 const Stack = createNativeStackNavigator();
