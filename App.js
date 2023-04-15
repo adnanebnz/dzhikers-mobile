@@ -14,6 +14,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
+import registerNNPushToken from "native-notify";
 const Stack = createNativeStackNavigator();
 const store = configureStore({
   reducer: {
@@ -22,15 +23,8 @@ const store = configureStore({
 });
 
 export default function App({ navigation }) {
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: false,
-      shouldSetBadge: false,
-    }),
-  });
-
   const { user, userLoading, error } = useFetchUser();
+  registerNNPushToken(7418, "yXXX1LjDXsGQ3yF6UbxayK");
   return (
     <Provider store={store}>
       <NavigationContainer>
