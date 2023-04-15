@@ -14,7 +14,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
-import EditProfile from "./screens/Auth/EditProfile";
+import registerNNPushToken from "native-notify";
 const Stack = createNativeStackNavigator();
 const store = configureStore({
   reducer: {
@@ -23,6 +23,7 @@ const store = configureStore({
 });
 
 export default function App({ navigation }) {
+  registerNNPushToken(7418, "yXXX1LjDXsGQ3yF6UbxayK");
   const { user, userLoading, error } = useFetchUser();
   return (
     <Provider store={store}>
@@ -122,14 +123,14 @@ export default function App({ navigation }) {
               headerShown: true,
             }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="EditProfile"
             component={EditProfile}
             options={{
               headerShown: true,
               headerTitle: "Modifier mon profil",
             }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
