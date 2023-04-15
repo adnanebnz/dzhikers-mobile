@@ -31,6 +31,15 @@
         "projectId": "55448471-ae3d-4137-9d50-0ffb397dc0dd"
       }
     },
-    "owner": "skillz1337"
+    "owner": "skillz1337",
+    "plugins": [
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsImpl": "mapbox",
+          "RNMapboxMapsDownloadToken": "sk.eyJ1Ijoic2tpbGx6ZGV2IiwiYSI6ImNsZ2g1NXdzbzAxbzIzZHBjYjM3eGRlemwifQ.4WR2sgoLVslHem_HTZspag"
+        }
+      ]
+    ]
   }
 }

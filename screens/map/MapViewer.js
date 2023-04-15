@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import MapView, { Callout } from "react-native-maps";
-import { Marker } from "react-native-maps";
+import Mapbox, { Callout } from "@rnmapbox/maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { makeRequest } from "../../makeRequest";
 import { Text, View, Button, ActivityIndicator } from "react-native";
 import tw from "twrnc";
 import { StatusBar } from "react-native";
+import { Ionicons } from "@expo/vector-icons/build/Icons";
 export default function MapViewer({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [pins, setPins] = useState([]);
@@ -21,6 +21,9 @@ export default function MapViewer({ navigation }) {
     });
     return unsubscribe;
   }, [navigation]);
+  Mapbox.setAccessToken(
+    "pk.eyJ1Ijoic2tpbGx6ZGV2IiwiYSI6ImNsZThrbmV0NjA3NjEzeW8zZTNoN3NremEifQ.J2OUiRda51tADGWwnH-cuw"
+  );
   return (
     <SafeAreaView>
       {loading && (
@@ -38,38 +41,26 @@ export default function MapViewer({ navigation }) {
       )}
       {!loading && (
         <>
-          <MapView
-            style={{ width: "100%", height: "100%" }}
-            initialRegion={{
-              latitude: 30.583316,
-              longitude: 2.88367,
-              latitudeDelta: 10,
-              longitudeDelta: 10,
+          <Mapbox.MapView
+            style={{
+              height: "100%",
+              width: "100%",
             }}
           >
+            <Mapbox.Camera
+              zoomLevel={4.5}
+              centerCoordinate={[3.3, 34.666667]}
+            />
             {pins.map((pin) => (
-              <Marker
+              <Mapbox.MarkerView
                 key={pin._id}
-                coordinate={{
-                  latitude: pin.lat,
-                  longitude: pin.long,
-                }}
+                id={pin._id}
+                coordinate={[pin.long, pin.lat]}
               >
-                <Callout
-                  onPress={() => {
-                    navigation.navigate("Details", { id: pin._id });
-                  }}
-                >
-                  <Text style={tw`text-lg text-gray-800 font-semibold`}>
-                    {pin.title}
-                  </Text>
-                  <View style={tw`mt-2`}>
-                    <Button title="PLUS DE DETAILS" />
-                  </View>
-                </Callout>
-              </Marker>
+                <Ionicons name="location" size={24} color="red" />
+              </Mapbox.MarkerView>
             ))}
-          </MapView>
+          </Mapbox.MapView>
         </>
       )}
       <StatusBar style="auto" />
