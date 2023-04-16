@@ -17,7 +17,6 @@ import {
   Divider,
   NativeBaseProvider,
   Pressable,
-  HamburgerIcon,
 } from "native-base";
 import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -171,7 +170,7 @@ export default function Home({ navigation }) {
                   </View>
                 )}
                 <TouchableOpacity
-                  style={tw`px-2`}
+                  style={tw`px-2 mr-3`}
                   onPress={() => {
                     navigation.navigate("Panier");
                   }}
@@ -179,12 +178,23 @@ export default function Home({ navigation }) {
                   <View
                     style={{
                       position: "absolute",
-                      top: -13,
-                      right: -5,
+                      top: -15,
+                      right: -7,
                     }}
                   >
                     {cart.length > 0 && (
-                      <Badge colorScheme="error">{cart.length}</Badge>
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={6}
+                        h={6}
+                      >
+                        {cart.length}
+                      </Badge>
                     )}
                   </View>
                   <MaterialCommunityIcons
