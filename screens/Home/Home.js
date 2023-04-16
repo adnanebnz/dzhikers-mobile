@@ -8,10 +8,17 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { Menu, Divider, Provider, Badge } from "react-native-paper";
+import {
+  Menu,
+  Badge,
+  Divider,
+  NativeBaseProvider,
+  Pressable,
+  HamburgerIcon,
+} from "native-base";
 import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
@@ -48,7 +55,7 @@ export default function Home({ navigation }) {
     navigation.navigate("Login");
   };
   return (
-    <Provider>
+    <NativeBaseProvider>
       {loading ? (
         <View
           style={{
@@ -62,36 +69,6 @@ export default function Home({ navigation }) {
         </View>
       ) : (
         <>
-          <Menu
-            visible={visible}
-            onDismiss={closeMenu}
-            anchor={{
-              x: 350,
-              y: 80,
-              width: 0,
-              height: 0,
-            }}
-            anchorPosition="top right"
-          >
-            <Menu.Item
-              onPress={() => {
-                navigation.navigate("Profile");
-              }}
-              leadingIcon={() => (
-                <Ionicons name="person" size={24} color="#6b7280" />
-              )}
-              title="Profile"
-            />
-            <Divider />
-            <Menu.Item
-              onPress={handleDisconnect}
-              leadingIcon={() => (
-                <Ionicons name="log-out" size={24} color="#6b7280" />
-              )}
-              title="Deconnecter"
-            />
-          </Menu>
-
           <SafeAreaView style={tw`pt-1`}>
             <View style={tw`flex flex-row items-center justify-between`}>
               <View style={tw`flex flex-row items-center gap-1 px-4`}>
@@ -124,17 +101,74 @@ export default function Home({ navigation }) {
                   </TouchableOpacity>
                 )}
                 {user && (
-                  <TouchableOpacity
-                    style={tw`px-2`}
-                    onPress={() => {
-                      setVisible(true);
+                  <View
+                    style={{
+                      paddingRight: 5,
                     }}
                   >
-                    <Image
-                      source={{ uri: user.details.img }}
-                      style={styles.avatar}
-                    />
-                  </TouchableOpacity>
+                    <Menu
+                      marginRight={2}
+                      w="150"
+                      trigger={(triggerProps) => {
+                        return (
+                          <Pressable {...triggerProps}>
+                            <Image
+                              source={{ uri: user.details.img }}
+                              style={styles.avatar}
+                            />
+                          </Pressable>
+                        );
+                      }}
+                    >
+                      <Menu.Item
+                        onPress={() => {
+                          navigation.navigate("Profile");
+                        }}
+                      >
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 10,
+                          }}
+                        >
+                          <Ionicons
+                            name="person-outline"
+                            size={24}
+                            color="#374151"
+                          />
+                          <Text style={tw`font-semibold text-black`}>
+                            Profile
+                          </Text>
+                        </View>
+                      </Menu.Item>
+                      <Divider />
+                      <Menu.Item
+                        onPress={() => {
+                          handleDisconnect();
+                        }}
+                      >
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 10,
+                          }}
+                        >
+                          <Ionicons
+                            name="log-out-outline"
+                            size={24}
+                            color="#374151"
+                          />
+                          <Text style={tw`font-semibold text-black`}>
+                            Déconnexion
+                          </Text>
+                        </View>
+                      </Menu.Item>
+                    </Menu>
+                  </View>
                 )}
                 <TouchableOpacity
                   style={tw`px-2`}
@@ -149,7 +183,9 @@ export default function Home({ navigation }) {
                       right: -5,
                     }}
                   >
-                    {cart.length > 0 && <Badge>{cart.length}</Badge>}
+                    {cart.length > 0 && (
+                      <Badge colorScheme="error">{cart.length}</Badge>
+                    )}
                   </View>
                   <MaterialCommunityIcons
                     name="shopping-outline"
@@ -168,24 +204,24 @@ export default function Home({ navigation }) {
               </View>
             </View>
 
-            <View style={tw`mt-5`}>
-              <Text style={tw`font-semibold text-xl px-4`}>Nous offrons</Text>
+            <View style={tw`mt-6 mb-3`}>
+              <Text style={tw`font-semibold text-xl px-4`}>
+                Nous disposons de
+              </Text>
               <View
-                style={tw`flex flex-row gap-3 pt-3 px-2 items-center justify-center`}
+                style={tw`flex flex-row gap-2 pt-3 px-2 items-center justify-center`}
               >
                 <View
-                  style={tw`rounded-full bg-blue-500 px-4 py-2 flex flex-row gap-2 items-center justify-center`}
+                  style={tw`rounded-full bg-blue-500 px-3 py-2 flex flex-row gap-2 items-center justify-center`}
                 >
                   <Foundation name="mountains" size={17} color="white" />
-                  <Text style={tw`text-lg text-white`}>Des randonées</Text>
+                  <Text style={tw`text-lg text-white`}>Randonées</Text>
                 </View>
                 <View
-                  style={tw`rounded-full bg-blue-500 px-4 py-2 flex flex-row gap-2 items-center justify-center`}
+                  style={tw`rounded-full bg-blue-500 px-3 py-2 flex flex-row gap-2 items-center justify-center`}
                 >
                   <FontAwesome5 name="store" size={17} color="white" />
-                  <Text style={tw`text-lg text-white`}>
-                    Differents produits
-                  </Text>
+                  <Text style={tw`text-lg text-white`}>Articles d'achat</Text>
                 </View>
               </View>
             </View>
@@ -275,7 +311,7 @@ export default function Home({ navigation }) {
           </SafeAreaView>
         </>
       )}
-    </Provider>
+    </NativeBaseProvider>
   );
 }
 const styles = StyleSheet.create({

@@ -140,6 +140,13 @@ export default function App({ navigation }) {
                     headerShown: false,
                   }}
                 />
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
               </>
             ) : (
               <>
