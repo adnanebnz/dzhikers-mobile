@@ -46,6 +46,12 @@
           "RNMapboxMapsImpl": "mapbox",
           "RNMapboxMapsDownloadToken": "sk.eyJ1Ijoic2tpbGx6ZGV2IiwiYSI6ImNsZ2g1NXdzbzAxbzIzZHBjYjM3eGRlemwifQ.4WR2sgoLVslHem_HTZspag"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "L'application accéde a vos photos pour emmetre ou modifier votre avatar."
+        }
       ]
     ],
     "updates": {

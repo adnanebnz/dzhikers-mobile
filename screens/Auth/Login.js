@@ -99,7 +99,7 @@ export default function Login({ navigation }) {
               ...tw`mt-3`,
             }}
             onPress={() => {
-              navigation.navigate("Register");
+              navigation.navigate("ForgotPassword");
             }}
           >
             <Text
