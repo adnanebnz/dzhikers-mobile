@@ -5,7 +5,6 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
@@ -22,13 +21,15 @@ export default function Home({ navigation }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const closeMenu = () => setVisible(false);
-  const [searchText, setSearchText] = useState("");
+  const [pins, setPins] = useState([]);
   const cart = useSelector((state) => state.cart.cart);
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
       try {
         const res = await AsyncStorage.getItem("currentUser");
         setUser(JSON.parse(res));
+        const resOne = await makeRequest.get("/pins/pure");
+        setPins(resOne.data.pins);
       } catch (err) {
         setError(err);
       }
@@ -36,9 +37,7 @@ export default function Home({ navigation }) {
     });
     return unsubscribe;
   }, []);
-  const handleClear = () => {
-    setSearchText("");
-  };
+
   const handleDisconnect = async () => {
     try {
       await makeRequest.post("/users/logout", "", {
@@ -95,7 +94,7 @@ export default function Home({ navigation }) {
             />
           </Menu>
 
-          <SafeAreaView style={tw`pt-4`}>
+          <SafeAreaView style={tw`pt-1`}>
             <View style={tw`flex flex-row items-center justify-between`}>
               <View style={tw`flex flex-row items-center gap-1 px-4`}>
                 <Text style={tw` text-xl text-black font-black`}>DZHIKERS</Text>
@@ -169,30 +168,6 @@ export default function Home({ navigation }) {
                   nous!
                 </Text>
               </View>
-              <View style={styles.container}>
-                <Ionicons
-                  name="search"
-                  size={24}
-                  color="gray"
-                  style={styles.icon}
-                />
-                <TextInput
-                  style={styles.input}
-                  value={searchText}
-                  onChangeText={setSearchText}
-                  placeholder="Rechercher"
-                />
-                {searchText !== "" && (
-                  <TouchableOpacity onPress={handleClear}>
-                    <Ionicons
-                      name="close"
-                      size={24}
-                      color="gray"
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                )}
-              </View>
             </View>
 
             <View style={tw`mt-3`}>
@@ -217,7 +192,7 @@ export default function Home({ navigation }) {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              style={tw`pt-6 mx-[9px] `}
+              style={tw`pt-3 mx-[5px] `}
               contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
             >
               <View>
@@ -291,6 +266,36 @@ export default function Home({ navigation }) {
                 </TouchableOpacity>
               </View>
             </ScrollView>
+            <View>
+              <Text style={tw`font-semibold text-xl px-4 mt-3`}>
+                Derniers randonées
+              </Text>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                style={tw`pt-1 mx-[9px] `}
+                contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
+              >
+                {pins.slice(0, 5).map((pin, index) => (
+                  <View key={pin._id}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("Details", {
+                          id: pin._id,
+                        });
+                      }}
+                    >
+                      <Image source={{ uri: pin.img }} style={styles.image} />
+                      <Text
+                        style={tw`absolute bottom-2 left-2 text-white text-[14px] font-semibold`}
+                      >
+                        {pin.title}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
           </SafeAreaView>
         </>
       )}
@@ -299,23 +304,12 @@ export default function Home({ navigation }) {
 }
 const styles = StyleSheet.create({
   image: {
-    width: 210,
-    height: 245,
+    width: 160,
+    height: 160,
     borderRadius: 10,
     opacity: 0.8,
   },
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 5,
-    marginTop: 17,
-    marginBottom: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    elevation: 5,
-  },
+
   input: {
     flex: 1,
     marginLeft: 5,

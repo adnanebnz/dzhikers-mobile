@@ -42,7 +42,7 @@ export default function Root({ navigation }) {
           tabBarStyle: {
             backgroundColor: "#e2e8f0",
             position: "absolute",
-            bottom: 25,
+            bottom: 15,
             left: 20,
             right: 20,
             elevation: 1,
