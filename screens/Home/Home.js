@@ -8,28 +8,26 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Menu, Divider, Provider, Badge } from "react-native-paper";
 import { makeRequest } from "../../makeRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native";
-
+import { Foundation } from "@expo/vector-icons";
 export default function Home({ navigation }) {
   const [visible, setVisible] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const closeMenu = () => setVisible(false);
-  const [pins, setPins] = useState([]);
   const cart = useSelector((state) => state.cart.cart);
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
       try {
         const res = await AsyncStorage.getItem("currentUser");
         setUser(JSON.parse(res));
-        const resOne = await makeRequest.get("/pins/pure");
-        setPins(resOne.data.pins);
       } catch (err) {
         setError(err);
       }
@@ -161,7 +159,7 @@ export default function Home({ navigation }) {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={tw`mt-1 px-3`}>
+            <View style={tw`mt-4 px-3`}>
               <View>
                 <Text style={tw`text-2xl`}>
                   Explorez <Text style={tw`font-bold`}>l'Algérie</Text> avec
@@ -170,13 +168,21 @@ export default function Home({ navigation }) {
               </View>
             </View>
 
-            <View style={tw`mt-3`}>
+            <View style={tw`mt-5`}>
               <Text style={tw`font-semibold text-xl px-4`}>Nous offrons</Text>
-              <View style={tw`flex flex-row gap-3 pt-2 px-2`}>
-                <View style={tw`rounded-full bg-blue-500 px-4 py-2`}>
+              <View
+                style={tw`flex flex-row gap-3 pt-3 px-2 items-center justify-center`}
+              >
+                <View
+                  style={tw`rounded-full bg-blue-500 px-4 py-2 flex flex-row gap-2 items-center justify-center`}
+                >
+                  <Foundation name="mountains" size={17} color="white" />
                   <Text style={tw`text-lg text-white`}>Des randonées</Text>
                 </View>
-                <View style={tw`rounded-full bg-blue-500 px-4 py-2`}>
+                <View
+                  style={tw`rounded-full bg-blue-500 px-4 py-2 flex flex-row gap-2 items-center justify-center`}
+                >
+                  <FontAwesome5 name="store" size={17} color="white" />
                   <Text style={tw`text-lg text-white`}>
                     Differents produits
                   </Text>
@@ -184,7 +190,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
 
-            <View style={tw`flex flex-row items-center justify-center mt-3`}>
+            <View style={tw`flex flex-row items-center justify-center mt-5`}>
               <Text style={tw`text-[16px] text-gray-600`}>
                 Parcourrez et choisissez ce qui vous convient!
               </Text>
@@ -192,7 +198,7 @@ export default function Home({ navigation }) {
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              style={tw`pt-3 mx-[5px] `}
+              style={tw`pt-4 mx-[4px] `}
               contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
             >
               <View>
@@ -266,36 +272,6 @@ export default function Home({ navigation }) {
                 </TouchableOpacity>
               </View>
             </ScrollView>
-            <View>
-              <Text style={tw`font-semibold text-xl px-4 mt-3`}>
-                Derniers randonées
-              </Text>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                style={tw`pt-1 mx-[9px] `}
-                contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
-              >
-                {pins.slice(0, 5).map((pin) => (
-                  <View key={pin._id}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate("Details", {
-                          id: pin._id,
-                        });
-                      }}
-                    >
-                      <Image source={{ uri: pin.img }} style={styles.image} />
-                      <Text
-                        style={tw`absolute bottom-2 left-2 text-white text-[14px] font-semibold`}
-                      >
-                        {pin.title}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                ))}
-              </ScrollView>
-            </View>
           </SafeAreaView>
         </>
       )}
@@ -304,8 +280,8 @@ export default function Home({ navigation }) {
 }
 const styles = StyleSheet.create({
   image: {
-    width: 160,
-    height: 160,
+    width: 220,
+    height: 220,
     borderRadius: 10,
     opacity: 0.8,
   },
