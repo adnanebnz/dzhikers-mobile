@@ -13,16 +13,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
-
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ForgotPassword from "./screens/Auth/ForgotPassword";
+import Products from "./screens/Shop/Products";
 import EditProfile from "./screens/Auth/EditProfile";
-import ResetPassword from "./screens/Auth/ResetPassword";
+import ForgotPassword from "./screens/Auth/ForgotPassword";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -141,13 +140,6 @@ export default function App({ navigation }) {
                     headerShown: false,
                   }}
                 />
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{
-                    headerShown: false,
-                  }}
-                />
               </>
             ) : (
               <>
@@ -158,25 +150,16 @@ export default function App({ navigation }) {
                     headerShown: false,
                   }}
                 />
-
                 <Stack.Screen
-                  name="Register"
-                  component={Register}
+                  name="ForgotPassword"
+                  component={ForgotPassword}
                   options={{
                     headerShown: false,
                   }}
                 />
                 <Stack.Screen
-                  name="ForgotPassword"
-                  component={ForgotPassword}
-                  options={{
-                    headerShown: true,
-                    headerTitle: "Mot de passe oublié",
-                  }}
-                />
-                <Stack.Screen
-                  name="ResetPassword"
-                  component={ResetPassword}
+                  name="Register"
+                  component={Register}
                   options={{
                     headerShown: false,
                   }}
@@ -248,6 +231,14 @@ export default function App({ navigation }) {
               options={{
                 headerShown: true,
                 headerTitle: "Modifier mon profil",
+              }}
+            />
+            <Stack.Screen
+              name="Products"
+              component={Products}
+              options={{
+                headerShown: true,
+                headerTitle: "Boutique",
               }}
             />
           </Stack.Navigator>

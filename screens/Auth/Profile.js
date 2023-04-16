@@ -31,7 +31,7 @@ export default function Profile({ navigation }) {
         </View>
       ) : (
         <View>
-          <View style={tw`px-3`}>
+          <View style={tw`px-3 pt-3`}>
             <View style={tw`flex-row items-center justify-between`}>
               <View style={tw`flex-row items-center`}>
                 <Image

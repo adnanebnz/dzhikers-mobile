@@ -221,50 +221,74 @@ export default function Home({ navigation }) {
               contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
             >
               <View>
-                <Image
-                  source={require("./../../assets/hikers.jpg")}
-                  style={styles.image}
-                />
-
-                <Text
-                  style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Map");
+                  }}
                 >
-                  Randonées
-                </Text>
+                  <Image
+                    source={require("./../../assets/hikers.jpg")}
+                    style={styles.image}
+                  />
+
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                  >
+                    Randonées
+                  </Text>
+                </TouchableOpacity>
               </View>
 
               <View>
-                <Image
-                  source={require("./../../assets/chair.jpg")}
-                  style={styles.image}
-                />
-                <Text
-                  style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Products");
+                  }}
                 >
-                  Chaises
-                </Text>
+                  <Image
+                    source={require("./../../assets/chair.jpg")}
+                    style={styles.image}
+                  />
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                  >
+                    Chaises
+                  </Text>
+                </TouchableOpacity>
               </View>
               <View>
-                <Image
-                  source={require("./../../assets/tante.jpg")}
-                  style={styles.image}
-                />
-                <Text
-                  style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Products");
+                  }}
                 >
-                  Tantes
-                </Text>
+                  <Image
+                    source={require("./../../assets/tante.jpg")}
+                    style={styles.image}
+                  />
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                  >
+                    Tantes
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <View style={tw``}>
-                <Image
-                  source={require("./../../assets/photo.png")}
-                  style={styles.image}
-                />
-                <Text
-                  style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Products");
+                  }}
                 >
-                  Vetements
-                </Text>
+                  <Image
+                    source={require("./../../assets/photo.png")}
+                    style={styles.image}
+                  />
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                  >
+                    Vetements
+                  </Text>
+                </TouchableOpacity>
               </View>
             </ScrollView>
           </SafeAreaView>
