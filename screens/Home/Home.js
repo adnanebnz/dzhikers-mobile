@@ -204,7 +204,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
 
-            <View style={tw`mt-6 mb-3`}>
+            <View style={tw`mt-8 mb-3`}>
               <Text style={tw`font-semibold text-xl px-4`}>
                 Nous disposons de
               </Text>
