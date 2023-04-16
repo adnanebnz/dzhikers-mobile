@@ -276,7 +276,7 @@ export default function Home({ navigation }) {
                 style={tw`pt-1 mx-[9px] `}
                 contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
               >
-                {pins.slice(0, 5).map((pin, index) => (
+                {pins.slice(0, 5).map((pin) => (
                   <View key={pin._id}>
                     <TouchableOpacity
                       onPress={() => {
