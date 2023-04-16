@@ -13,12 +13,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
+
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ForgotPassword from "./screens/Auth/ForgotPassword";
+import EditProfile from "./screens/Auth/EditProfile";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -223,14 +226,22 @@ export default function App({ navigation }) {
                 headerShown: true,
               }}
             />
-            {/* <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            options={{
-              headerShown: true,
-              headerTitle: "Modifier mon profil",
-            }}
-          /> */}
+            <Stack.Screen
+              name="EditProfile"
+              component={EditProfile}
+              options={{
+                headerShown: true,
+                headerTitle: "Modifier mon profil",
+              }}
+            />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPassword}
+              options={{
+                headerShown: true,
+                headerTitle: "Mot de passe oublié",
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       )}

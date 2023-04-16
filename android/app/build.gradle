@@ -125,7 +125,6 @@ packagingOptions {
     defaultConfig {
         applicationId 'live.dzhikers'
         minSdkVersion rootProject.ext.minSdkVersion
-        compileSdkVersion rootProject.ext.compileSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.1.0"

@@ -8,8 +8,6 @@ import {
   NativeBaseProvider,
   TextField,
   Button,
-  useToast,
-  Center,
   Alert,
   VStack,
   HStack,
@@ -42,7 +40,6 @@ const Payment = ({ navigation }) => {
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.price;
   }, 0);
-  const toast = useToast();
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
       try {
