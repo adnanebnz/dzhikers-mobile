@@ -5,6 +5,23 @@ const initialState = {
   cart: [],
   items: [],
 };
+const init = {
+  notifs: [],
+  hikesInfos: [],
+};
+
+export const notifsSlice = createSlice({
+  name: "notifs",
+  initialState: init,
+  reducers: {
+    setNotifs: (state, action) => {
+      state.notifs = action.payload;
+    },
+    setHikesInfos: (state, action) => {
+      state.hikesInfos = action.payload;
+    },
+  },
+});
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -63,5 +80,7 @@ export const {
   decreaseCount,
   setIsCartOpen,
 } = cartSlice.actions;
+
+export const { setNotifs, setHikesInfos } = notifsSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,8 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home/Home";
-import Settings from "./screens/Settings/Settings";
 import { View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
-import Notifs from "./screens/notifs/Notifs";
 import Products from "./screens/Shop/Products";
 import MapViewer from "./screens/map/MapViewer";
 import { Ionicons } from "@expo/vector-icons";
@@ -43,11 +41,11 @@ export default function Root({ navigation }) {
             backgroundColor: "#e2e8f0",
             position: "absolute",
             bottom: 25,
-            left: 20,
-            right: 20,
+            left: 40,
+            right: 40,
             elevation: 1,
             borderRadius: 15,
-            height: 90,
+            height: 80,
           },
           tabBarHideOnKeyboard: true,
         }}
@@ -61,60 +59,24 @@ export default function Root({ navigation }) {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  top: 10,
-                }}
-              >
-                <Image
-                  source={require("./assets/home.png")}
-                  resizeMode="contain"
-                  style={{
-                    width: 25,
-                    height: 25,
-                    tintColor: focused ? "#2563eb" : "#748c94",
-                  }}
-                />
-                <Text
-                  style={{
-                    color: focused ? "#2563eb" : "#748c94",
-                    fontSize: 12,
-                  }}
-                >
-                  Accueil
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Boutique"
-          component={Products}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  top: 10,
                 }}
               >
                 <Ionicons
-                  name="cart-outline"
-                  size={24}
+                  name="home-outline"
+                  size={28}
                   color={focused ? "#2563eb" : "#748c94"}
                 />
 
                 <Text
                   style={{
                     color: focused ? "#2563eb" : "#748c94",
-                    fontSize: 12,
+                    fontSize: 14,
                   }}
                 >
-                  Boutique
+                  Accueil
                 </Text>
               </View>
             ),
-            headerShown: true,
-            headerTitle: "Boutique",
           }}
         />
         <Tab.Screen
@@ -138,61 +100,34 @@ export default function Root({ navigation }) {
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={Settings}
+          name="Boutique"
+          component={Products}
           options={{
             tabBarIcon: ({ focused }) => (
               <View
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  top: 10,
                 }}
               >
                 <Ionicons
-                  name="settings-outline"
-                  size={24}
+                  name="cart-outline"
+                  size={28}
                   color={focused ? "#2563eb" : "#748c94"}
                 />
+
                 <Text
                   style={{
                     color: focused ? "#2563eb" : "#748c94",
-                    fontSize: 12,
+                    fontSize: 14,
                   }}
                 >
-                  Settings
+                  Boutique
                 </Text>
               </View>
             ),
-          }}
-        />
-        <Tab.Screen
-          name="Notifications"
-          component={Notifs}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  top: 10,
-                }}
-              >
-                <Ionicons
-                  name="notifications-outline"
-                  size={24}
-                  color={focused ? "#2563eb" : "#748c94"}
-                />
-                <Text
-                  style={{
-                    color: focused ? "#2563eb" : "#748c94",
-                    fontSize: 12,
-                  }}
-                >
-                  Alerts
-                </Text>
-              </View>
-            ),
+            headerShown: true,
+            headerTitle: "Boutique",
           }}
         />
       </Tab.Navigator>

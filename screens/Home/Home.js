@@ -24,10 +24,10 @@ import { useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native";
 import { Foundation } from "@expo/vector-icons";
 export default function Home({ navigation }) {
-  const [visible, setVisible] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const closeMenu = () => setVisible(false);
+  const notifs = useSelector((state) => state.notifs.notifs);
+  const [error, setError] = useState(null);
   const cart = useSelector((state) => state.cart.cart);
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
@@ -39,8 +39,11 @@ export default function Home({ navigation }) {
       }
       setLoading(false);
     });
-    return unsubscribe;
-  }, []);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [navigation]);
 
   const handleDisconnect = async () => {
     try {
@@ -172,6 +175,56 @@ export default function Home({ navigation }) {
                 <TouchableOpacity
                   style={tw`px-2 mr-3`}
                   onPress={() => {
+                    navigation.navigate("Notifications", {
+                      id: user.details._id,
+                    });
+                  }}
+                >
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: -15,
+                      right: -7,
+                    }}
+                  >
+                    {notifs.length > 0 && notifs.length <= 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={6}
+                        h={6}
+                      >
+                        {notifs.length}
+                      </Badge>
+                    )}
+                    {notifs.length > 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={8}
+                        h={6}
+                      >
+                        9+
+                      </Badge>
+                    )}
+                  </View>
+                  <MaterialCommunityIcons
+                    name="bell-outline"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={tw`mr-3`}
+                  onPress={() => {
                     navigation.navigate("Panier");
                   }}
                 >
@@ -182,7 +235,7 @@ export default function Home({ navigation }) {
                       right: -7,
                     }}
                   >
-                    {cart.length > 0 && (
+                    {cart.length > 0 && cart.length <= 9 && (
                       <Badge
                         bg="red.500"
                         borderRadius={50}
@@ -194,6 +247,20 @@ export default function Home({ navigation }) {
                         h={6}
                       >
                         {cart.length}
+                      </Badge>
+                    )}
+                    {cart.length > 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={8}
+                        h={6}
+                      >
+                        9+
                       </Badge>
                     )}
                   </View>

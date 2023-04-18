@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
 import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,6 +6,7 @@ import { SafeAreaView } from "react-native";
 import { useEffect } from "react";
 import { makeRequest } from "../../makeRequest";
 import { useState } from "react";
+import { ScrollView } from "react-native";
 const BookingListing = ({ navigation, route }) => {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
@@ -44,7 +39,7 @@ const BookingListing = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView>
+    <ScrollView>
       {loading ? (
         <View style={tw`flex items-center justify-center h-full`}>
           <ActivityIndicator size="large" />
@@ -102,7 +97,7 @@ const BookingListing = ({ navigation, route }) => {
           </View>
         </View>
       )}
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
