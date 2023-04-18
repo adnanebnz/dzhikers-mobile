@@ -5,8 +5,8 @@ import { ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { makeRequest } from "../../makeRequest";
 import { ActivityIndicator } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
+import { notifsSlice } from "../../state";
 export default function Notifs({ navigation, route }) {
   const [notifs, setNotifs] = useState([]);
   const [hikes, setHikes] = useState([]);
@@ -53,6 +53,7 @@ export default function Notifs({ navigation, route }) {
                       style={{
                         ...tw` flex flex-col justify-between my-2 bg-white rounded-lg px-3 py-2 shadow-md`,
                       }}
+                      key={item._id}
                     >
                       <View
                         style={{
