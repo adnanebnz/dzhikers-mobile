@@ -71,7 +71,6 @@ const Stack = createNativeStackNavigator();
 const store = configureStore({
   reducer: {
     cart: cartReducer,
-    notifs: notifsSlice.reducer,
   },
 });
 

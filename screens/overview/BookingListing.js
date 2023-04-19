@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
 import tw from "twrnc";
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native";
 import { useEffect } from "react";
 import { makeRequest } from "../../makeRequest";
 import { useState } from "react";
@@ -39,14 +38,14 @@ const BookingListing = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView>
+    <>
       {loading ? (
         <View style={tw`flex items-center justify-center h-full`}>
           <ActivityIndicator size="large" />
         </View>
       ) : (
-        <View>
-          <View style={tw`bg-white h-full p-3`}>
+        <ScrollView>
+          <View style={tw`h-full p-3`}>
             {data.length === 0 ? (
               <View style={tw`flex items-center justify-center mt-5`}>
                 <Text style={tw`text-[16px] font-medium`}>
@@ -59,7 +58,7 @@ const BookingListing = ({ navigation, route }) => {
                   <View
                     key={item._id}
                     style={{
-                      ...tw`flex-row items-center justify-between my-2 bg-gray-100 rounded-lg px-3 py-2`,
+                      ...tw`flex-row items-center justify-between my-2 bg-gray-200 rounded-lg px-3 py-2`,
                     }}
                   >
                     <View
@@ -95,9 +94,9 @@ const BookingListing = ({ navigation, route }) => {
               </View>
             )}
           </View>
-        </View>
+        </ScrollView>
       )}
-    </ScrollView>
+    </>
   );
 };
 

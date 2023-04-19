@@ -23,28 +23,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
 import { ActivityIndicator } from "react-native";
 import { Foundation } from "@expo/vector-icons";
-export default function Home({ navigation }) {
-  const [user, setUser] = useState(null);
+export default function Home({ navigation, route }) {
+  const { user } = route.params;
   const [loading, setLoading] = useState(true);
-  const notifs = useSelector((state) => state.notifs.notifs);
+  const [notifs, setNotifs] = useState([]);
   const [error, setError] = useState(null);
   const cart = useSelector((state) => state.cart.cart);
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async () => {
+    const fetchNotifs = async () => {
       try {
-        const res = await AsyncStorage.getItem("currentUser");
-        setUser(JSON.parse(res));
+        const res = await makeRequest.get(
+          `announces/notifs/${user.details._id}`
+        );
+        setNotifs(res.data.announces.length);
       } catch (err) {
         setError(err);
       }
       setLoading(false);
-    });
-
-    return () => {
-      unsubscribe();
     };
-  }, [navigation]);
-
+    fetchNotifs();
+  }, []);
   const handleDisconnect = async () => {
     try {
       await makeRequest.post("/users/logout", "", {
@@ -187,7 +185,7 @@ export default function Home({ navigation }) {
                       right: -7,
                     }}
                   >
-                    {notifs.length > 0 && notifs.length <= 9 && (
+                    {notifs > 0 && notifs <= 9 && (
                       <Badge
                         bg="red.500"
                         borderRadius={50}
@@ -198,10 +196,10 @@ export default function Home({ navigation }) {
                         w={6}
                         h={6}
                       >
-                        {notifs.length}
+                        {notifs}
                       </Badge>
                     )}
-                    {notifs.length > 9 && (
+                    {notifs > 9 && (
                       <Badge
                         bg="red.500"
                         borderRadius={50}

@@ -4,9 +4,29 @@ import { View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import Products from "./screens/Shop/Products";
 import MapViewer from "./screens/map/MapViewer";
 import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ActivityIndicator } from "react-native";
 const Tab = createBottomTabNavigator();
 
-export default function Root({ navigation }) {
+export default function Root({ navigation, route }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", async () => {
+      try {
+        const user = await AsyncStorage.getItem("currentUser");
+        setUser(JSON.parse(user));
+      } catch (err) {
+        setError(err);
+      }
+      setLoading(false);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [navigation]);
   const CustomTabButton = ({ children, onPress }) => (
     <TouchableOpacity
       style={{
@@ -31,107 +51,125 @@ export default function Root({ navigation }) {
 
   return (
     <>
-      <Tab.Navigator
-        initialRouteName="Login"
-        screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          tabBarActiveTintColor: "#2563eb",
-          tabBarStyle: {
-            backgroundColor: "#e2e8f0",
-            position: "absolute",
-            bottom: 25,
-            left: 40,
-            right: 40,
-            elevation: 1,
-            borderRadius: 15,
-            height: 80,
-          },
-          tabBarHideOnKeyboard: true,
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Ionicons
-                  name="home-outline"
-                  size={28}
-                  color={focused ? "#2563eb" : "#748c94"}
-                />
+      {loading && (
+        <View
+          style={{
+            display: "flex",
+            height: "100%",
+            justifyContent: "center",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator size="large" />
+        </View>
+      )}
+      {!loading && (
+        <>
+          <Tab.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              headerShown: false,
+              tabBarShowLabel: false,
+              tabBarActiveTintColor: "#2563eb",
+              tabBarStyle: {
+                backgroundColor: "#e2e8f0",
+                position: "absolute",
+                bottom: 25,
+                left: 40,
+                right: 40,
+                elevation: 1,
+                borderRadius: 15,
+                height: 80,
+              },
+              tabBarHideOnKeyboard: true,
+            }}
+          >
+            <Tab.Screen
+              name="Home"
+              component={Home}
+              initialParams={{ user: user }}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <View
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Ionicons
+                      name="home-outline"
+                      size={28}
+                      color={focused ? "#2563eb" : "#748c94"}
+                    />
 
-                <Text
-                  style={{
-                    color: focused ? "#2563eb" : "#748c94",
-                    fontSize: 14,
-                  }}
-                >
-                  Accueil
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={MapViewer}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View>
-                <Image
-                  source={require("./assets/map-icon.png")}
-                  resizeMode="contain"
-                  style={{
-                    width: 35,
-                    height: 35,
-                    tintColor: "#fff",
-                  }}
-                />
-              </View>
-            ),
-            tabBarButton: (props) => <CustomTabButton {...props} />,
-          }}
-        />
-        <Tab.Screen
-          name="Boutique"
-          component={Products}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Ionicons
-                  name="cart-outline"
-                  size={28}
-                  color={focused ? "#2563eb" : "#748c94"}
-                />
+                    <Text
+                      style={{
+                        color: focused ? "#2563eb" : "#748c94",
+                        fontSize: 14,
+                      }}
+                    >
+                      Accueil
+                    </Text>
+                  </View>
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Map"
+              component={MapViewer}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <View>
+                    <Image
+                      source={require("./assets/map-icon.png")}
+                      resizeMode="contain"
+                      style={{
+                        width: 35,
+                        height: 35,
+                        tintColor: "#fff",
+                      }}
+                    />
+                  </View>
+                ),
+                tabBarButton: (props) => <CustomTabButton {...props} />,
+              }}
+            />
+            <Tab.Screen
+              name="Boutique"
+              component={Products}
+              options={{
+                tabBarIcon: ({ focused }) => (
+                  <View
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Ionicons
+                      name="cart-outline"
+                      size={28}
+                      color={focused ? "#2563eb" : "#748c94"}
+                    />
 
-                <Text
-                  style={{
-                    color: focused ? "#2563eb" : "#748c94",
-                    fontSize: 14,
-                  }}
-                >
-                  Boutique
-                </Text>
-              </View>
-            ),
-            headerShown: true,
-            headerTitle: "Boutique",
-          }}
-        />
-      </Tab.Navigator>
-      <StatusBar animated={true} backgroundColor="#60a5fa" />
+                    <Text
+                      style={{
+                        color: focused ? "#2563eb" : "#748c94",
+                        fontSize: 14,
+                      }}
+                    >
+                      Boutique
+                    </Text>
+                  </View>
+                ),
+                headerShown: true,
+                headerTitle: "Boutique",
+              }}
+            />
+          </Tab.Navigator>
+          <StatusBar animated={true} backgroundColor="#60a5fa" />
+        </>
+      )}
     </>
   );
 }
