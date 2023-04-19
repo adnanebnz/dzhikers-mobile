@@ -232,7 +232,7 @@ export default function Home({ navigation }) {
                     style={{
                       position: "absolute",
                       top: -15,
-                      right: -7,
+                      right: -17,
                     }}
                   >
                     {cart.length > 0 && cart.length <= 9 && (
