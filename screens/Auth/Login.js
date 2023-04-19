@@ -7,11 +7,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native";
 import { StatusBar } from "react-native";
-export default function Login({ navigation }) {
+import { useEffect } from "react";
+export default function Login({ navigation, route }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setTimeout(async () => {
+      await AsyncStorage.getItem("expoPushToken").then((token) => {
+        setToken(token);
+      });
+    }, 1000);
+  }, []);
   const handleLogin = async () => {
     try {
       setLoading(true);
@@ -20,6 +29,7 @@ export default function Login({ navigation }) {
         {
           email: email,
           password: password,
+          hardwareToken: token,
         },
         {
           withCredentials: true,

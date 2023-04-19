@@ -54,6 +54,7 @@ export default function MapViewer({ navigation }) {
             {pins.map((pin) => (
               //show pin with description
               <Mapbox.PointAnnotation
+                title={pin.title}
                 key={pin._id}
                 id={pin._id}
                 coordinate={[pin.long, pin.lat]}
@@ -62,9 +63,7 @@ export default function MapViewer({ navigation }) {
                     id: pin._id,
                   });
                 }}
-              >
-                <Callout title={pin.title} subtitle={pin.desc} />
-              </Mapbox.PointAnnotation>
+              />
             ))}
           </Mapbox.MapView>
         </>

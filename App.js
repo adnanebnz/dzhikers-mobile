@@ -10,12 +10,12 @@ import PurchasedProducts from "./screens/overview/PurchasedProducts";
 import Product from "./screens/Shop/Product";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import cartReducer, { notifsSlice } from "./state";
+import cartReducer from "./state";
 import Cart from "./screens/Cart/Cart";
 import Payment from "./screens/Shop/Payment";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,8 +26,8 @@ import Notifs from "./screens/notifs/Notifs";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 });
 
@@ -45,12 +45,8 @@ async function registerForPushNotificationsAsync() {
       alert("Failed to get push token for push notification!");
       return;
     }
-    token = (
-      await Notifications.getExpoPushTokenAsync({
-        experienceId: "@skillz1337/dzhikers",
-      })
-    ).data;
-    console.log(token);
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log("TOKEN FROM APP " + token);
   } else {
     alert("Must use physical device for Push Notifications");
   }
@@ -101,6 +97,14 @@ export default function App({ navigation }) {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+  useEffect(() => {
+    setTimeout(async () => {
+      if (expoPushToken !== "") {
+        await AsyncStorage.setItem("expoPushToken", expoPushToken);
+      }
+    }, 1000);
+  }, [expoPushToken]);
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
