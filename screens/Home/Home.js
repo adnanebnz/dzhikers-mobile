@@ -45,9 +45,15 @@ export default function Home({ navigation, route }) {
   }, []);
   const handleDisconnect = async () => {
     try {
-      await makeRequest.post("/users/logout", "", {
-        withCredentials: true,
-      });
+      await makeRequest.post(
+        "/users/logout",
+        {
+          id: user.details._id,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       await AsyncStorage.removeItem("currentUser");
     } catch (error) {
       console.log(error);
@@ -112,6 +118,17 @@ export default function Home({ navigation, route }) {
                       trigger={(triggerProps) => {
                         return (
                           <Pressable {...triggerProps}>
+                            {user.details.img.includes("undefined") ? (
+                              <Image
+                                source={require("../../assets/noavatar.png")}
+                                style={styles.avatar}
+                              />
+                            ) : (
+                              <Image
+                                source={{ uri: user.details.img }}
+                                style={styles.avatar}
+                              />
+                            )}
                             <Image
                               source={{ uri: user.details.img }}
                               style={styles.avatar}
