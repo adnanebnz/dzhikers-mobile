@@ -35,7 +35,7 @@ export default function Notifs({ navigation, route }) {
     fetchNotifs();
   }, []);
   return (
-    <>
+    <View>
       {loading ? (
         <View
           style={{
@@ -147,6 +147,6 @@ export default function Notifs({ navigation, route }) {
       )}
 
       <StatusBar animated={true} backgroundColor="#60a5fa" />
-    </>
+    </View>
   );
 }
