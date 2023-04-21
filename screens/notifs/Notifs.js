@@ -32,12 +32,8 @@ export default function Notifs({ navigation, route }) {
     }, 1000);
   }, []);
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      fetchNotifs();
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+    fetchNotifs();
+  }, []);
   return (
     <>
       {loading ? (
