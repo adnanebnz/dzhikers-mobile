@@ -7,7 +7,6 @@ import { makeRequest } from "../../makeRequest";
 import { ActivityIndicator } from "react-native";
 import { RefreshControl } from "react-native";
 import moment from "moment";
-import { Divider, NativeBaseProvider } from "native-base";
 export default function Notifs({ navigation, route }) {
   const [notifs, setNotifs] = useState([]);
   moment.locale("fr");
@@ -42,7 +41,7 @@ export default function Notifs({ navigation, route }) {
     return unsubscribe;
   }, [navigation]);
   return (
-    <NativeBaseProvider>
+    <>
       {loading ? (
         <View
           style={{
@@ -136,7 +135,11 @@ export default function Notifs({ navigation, route }) {
                                 {moment(notif.createdAt).format("LLL")}
                               </Text>
                             </View>
-                            {notifs.length > 1 && <Divider mb={2} mt={1} />}
+                            <View
+                              style={{
+                                ...tw`border-b border-gray-300 my-1`,
+                              }}
+                            />
                           </View>
                         ) : null
                       )}
@@ -150,6 +153,6 @@ export default function Notifs({ navigation, route }) {
       )}
 
       <StatusBar animated={true} backgroundColor="#60a5fa" />
-    </NativeBaseProvider>
+    </>
   );
 }
