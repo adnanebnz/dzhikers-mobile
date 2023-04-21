@@ -9,10 +9,8 @@ import { RefreshControl } from "react-native";
 import moment from "moment";
 export default function Notifs({ navigation, route }) {
   const [notifs, setNotifs] = useState([]);
-  moment.locale("fr");
   const [hikes, setHikes] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = route.params;
