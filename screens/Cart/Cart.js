@@ -24,8 +24,8 @@ export default function Cart({ navigation }) {
   }, 0);
   return (
     <NativeBaseProvider>
-      <SafeAreaView style={tw`p-2`}>
-        <ScrollView>
+      <ScrollView>
+        <SafeAreaView style={tw`p-2`}>
           {cart.length > 0 ? (
             <View>
               <View
@@ -191,9 +191,9 @@ export default function Cart({ navigation }) {
               </Text>
             </>
           )}
-        </ScrollView>
-        <StatusBar animated={true} backgroundColor="#60a5fa" />
-      </SafeAreaView>
+        </SafeAreaView>
+      </ScrollView>
+      <StatusBar animated={true} backgroundColor="#60a5fa" />
     </NativeBaseProvider>
   );
 }

@@ -6,23 +6,31 @@ import { useEffect } from "react";
 import { makeRequest } from "../../makeRequest";
 import { useState } from "react";
 import { ScrollView } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
+import { useCallback } from "react";
 const BookingListing = ({ navigation, route }) => {
   const { id } = route.params;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [msg, setMsg] = useState(null);
-
+  const [refreshing, setRefreshing] = useState(false);
+  const fetchData = async () => {
+    try {
+      const res = await makeRequest.get(`/reservations/${id}`);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await makeRequest.get(`/reservations/${id}`);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-    };
-
     fetchData();
   }, []);
   const handleDeleteReservation = async (id) => {
@@ -44,7 +52,16 @@ const BookingListing = ({ navigation, route }) => {
           <ActivityIndicator size="large" />
         </View>
       ) : (
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressBackgroundColor={"#374151"}
+              colors={["#fff"]}
+            />
+          }
+        >
           <View style={tw`h-full p-3`}>
             {data.length === 0 ? (
               <View style={tw`flex items-center justify-center mt-5`}>

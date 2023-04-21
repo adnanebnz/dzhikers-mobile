@@ -2,33 +2,47 @@ import { View, Text, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import tw from "twrnc";
 import { ScrollView } from "react-native";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { makeRequest } from "../../makeRequest";
 import { ActivityIndicator } from "react-native";
-import { useDispatch } from "react-redux";
+import { RefreshControl } from "react-native";
+import moment from "moment";
+import { Divider, NativeBaseProvider } from "native-base";
 export default function Notifs({ navigation, route }) {
   const [notifs, setNotifs] = useState([]);
+  moment.locale("fr");
   const [hikes, setHikes] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = route.params;
-  const dispatch = useDispatch();
+  const fetchNotifs = async () => {
+    try {
+      const res = await makeRequest.get(`announces/notifs/${id}`);
+      setNotifs(res.data.announces);
+      setHikes(res.data.hikeInfos);
+    } catch (err) {
+      setError(err);
+    }
+    setLoading(false);
+  };
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchNotifs();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async () => {
-      try {
-        const res = await makeRequest.get(`announces/notifs/${id}`);
-        setNotifs(res.data.announces);
-        setHikes(res.data.hikeInfos);
-      } catch (err) {
-        setError(err);
-      }
-      setLoading(false);
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchNotifs();
     });
 
     return unsubscribe;
   }, [navigation]);
   return (
-    <>
+    <NativeBaseProvider>
       {loading ? (
         <View
           style={{
@@ -43,7 +57,16 @@ export default function Notifs({ navigation, route }) {
           <ActivityIndicator size="large" />
         </View>
       ) : (
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressBackgroundColor={"#374151"}
+              colors={["#fff"]}
+            />
+          }
+        >
           <View style={tw`p-3`}>
             {notifs.length === 0 ? (
               <View style={tw`flex items-center justify-center mt-5`}>
@@ -60,28 +83,22 @@ export default function Notifs({ navigation, route }) {
                     }}
                     key={item._id}
                   >
-                    <View
-                      style={{
-                        ...tw`flex flex-row items-center justify-between w-full`,
-                      }}
-                    >
-                      <View style={tw`flex-row items-center gap-2`}>
-                        <Image
-                          source={{
-                            uri: item.img,
-                          }}
-                          style={{
-                            ...tw`w-14 h-14 rounded-full`,
-                          }}
-                        />
-                        <View>
-                          <Text style={tw`font-medium`}>{item.title}</Text>
-                        </View>
-                        <View>
-                          <Text style={tw`text-gray-400`}>
-                            prévu le {item.date.split("T")[0]}
-                          </Text>
-                        </View>
+                    <View style={tw`flex-row items-center gap-2`}>
+                      <Image
+                        source={{
+                          uri: item.img,
+                        }}
+                        style={{
+                          ...tw`w-14 h-14 rounded-full`,
+                        }}
+                      />
+                      <View>
+                        <Text style={tw`font-medium`}>{item.title}</Text>
+                      </View>
+                      <View>
+                        <Text style={tw`text-gray-400`}>
+                          prévu le {item.date.split("T")[0]}
+                        </Text>
                       </View>
                     </View>
                     <View
@@ -91,20 +108,35 @@ export default function Notifs({ navigation, route }) {
                     >
                       {notifs.map((notif) =>
                         notif.hikeId === item._id ? (
-                          <View
-                            style={tw`flex-col gap-2 justify-start`}
-                            key={notif._id}
-                          >
-                            <Text style={tw`text-gray-800 text-xl`}>
-                              {notif.title}
-                            </Text>
-                            <Text
+                          <View key={notif._id}>
+                            <View style={tw`flex-col gap-2 justify-start`}>
+                              <Text style={tw`text-black text-xl`}>
+                                {notif.title}
+                              </Text>
+                              <Text
+                                style={{
+                                  ...tw`text-gray-800 text-base`,
+                                }}
+                              >
+                                {notif.description}
+                              </Text>
+                            </View>
+
+                            <View
                               style={{
-                                ...tw`text-gray-500 text-base`,
+                                ...tw`mt-5 mb-2`,
                               }}
                             >
-                              {notif.description}
-                            </Text>
+                              <Text
+                                style={{
+                                  ...tw`text-gray-600 text-[13px]`,
+                                }}
+                              >
+                                Envoyée le{" "}
+                                {moment(notif.createdAt).format("LLL")}
+                              </Text>
+                            </View>
+                            {notifs.length > 1 && <Divider mb={2} mt={1} />}
                           </View>
                         ) : null
                       )}
@@ -118,6 +150,6 @@ export default function Notifs({ navigation, route }) {
       )}
 
       <StatusBar animated={true} backgroundColor="#60a5fa" />
-    </>
+    </NativeBaseProvider>
   );
 }
