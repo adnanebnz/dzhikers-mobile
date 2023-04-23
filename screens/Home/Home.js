@@ -95,324 +95,327 @@ export default function Home({ navigation, route }) {
                 colors={["#fff"]}
               />
             }
+            style={{
+              flex: 1,
+              height: "100%",
+              paddingTop: 10,
+            }}
           >
-            <SafeAreaView style={tw`pt-1`}>
-              <View style={tw`flex flex-row items-center justify-between`}>
-                <View style={tw`flex flex-row items-center gap-1 px-4`}>
-                  <Text style={tw` text-xl text-black font-black`}>
-                    DZHIKERS
-                  </Text>
+            <View style={tw`flex flex-row items-center justify-between pt-1`}>
+              <View style={tw`flex flex-row items-center gap-1 px-4`}>
+                <Text style={tw` text-[19px] text-black font-black`}>
+                  DZHIKERS
+                </Text>
 
-                  <Image
-                    source={require("./../../assets/noback.png")}
-                    style={{ width: 60, height: 60, resizeMode: "contain" }}
-                  />
-                </View>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row-reverse",
-                    alignItems: "center",
-                    gap: 5,
-                  }}
-                >
-                  {!user && (
-                    <TouchableOpacity
-                      style={tw`px-2`}
-                      onPress={() => {
-                        navigation.navigate("Login");
+                <Image
+                  source={require("./../../assets/noback.png")}
+                  style={{ width: 45, height: 45, resizeMode: "contain" }}
+                />
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                  alignItems: "center",
+                  gap: 5,
+                }}
+              >
+                {!user && (
+                  <TouchableOpacity
+                    style={tw`px-2`}
+                    onPress={() => {
+                      navigation.navigate("Login");
+                    }}
+                  >
+                    <Image
+                      source={require("../../assets/noavatar.png")}
+                      style={styles.avatar}
+                    />
+                  </TouchableOpacity>
+                )}
+                {user && (
+                  <View
+                    style={{
+                      paddingRight: 5,
+                    }}
+                  >
+                    <Menu
+                      marginRight={2}
+                      w="150"
+                      trigger={(triggerProps) => {
+                        return (
+                          <Pressable {...triggerProps}>
+                            <Image
+                              source={{ uri: user.details.img }}
+                              style={styles.avatar}
+                            />
+                          </Pressable>
+                        );
                       }}
                     >
-                      <Image
-                        source={require("../../assets/noavatar.png")}
-                        style={styles.avatar}
-                      />
-                    </TouchableOpacity>
-                  )}
-                  {user && (
-                    <View
-                      style={{
-                        paddingRight: 5,
-                      }}
-                    >
-                      <Menu
-                        marginRight={2}
-                        w="150"
-                        trigger={(triggerProps) => {
-                          return (
-                            <Pressable {...triggerProps}>
-                              <Image
-                                source={{ uri: user.details.img }}
-                                style={styles.avatar}
-                              />
-                            </Pressable>
-                          );
+                      <Menu.Item
+                        onPress={() => {
+                          navigation.navigate("Profile");
                         }}
                       >
-                        <Menu.Item
-                          onPress={() => {
-                            navigation.navigate("Profile");
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 10,
                           }}
                         >
-                          <View
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              gap: 10,
-                            }}
-                          >
-                            <Ionicons
-                              name="person-outline"
-                              size={24}
-                              color="#374151"
-                            />
-                            <Text style={tw`font-semibold text-black`}>
-                              Profile
-                            </Text>
-                          </View>
-                        </Menu.Item>
-                        <Divider />
-                        <Menu.Item
-                          onPress={() => {
-                            handleDisconnect();
+                          <Ionicons
+                            name="person-outline"
+                            size={24}
+                            color="#374151"
+                          />
+                          <Text style={tw`font-semibold text-black`}>
+                            Profile
+                          </Text>
+                        </View>
+                      </Menu.Item>
+                      <Divider />
+                      <Menu.Item
+                        onPress={() => {
+                          handleDisconnect();
+                        }}
+                      >
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 10,
                           }}
                         >
-                          <View
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              gap: 10,
-                            }}
-                          >
-                            <Ionicons
-                              name="log-out-outline"
-                              size={24}
-                              color="#374151"
-                            />
-                            <Text style={tw`font-semibold text-black`}>
-                              Déconnexion
-                            </Text>
-                          </View>
-                        </Menu.Item>
-                      </Menu>
-                    </View>
-                  )}
-                  <TouchableOpacity
-                    style={tw`px-2 mr-3`}
-                    onPress={() => {
-                      navigation.navigate("Notifications", {
-                        id: user.details._id,
-                      });
-                    }}
-                  >
-                    <View
-                      style={{
-                        position: "absolute",
-                        top: -15,
-                        right: -7,
-                      }}
-                    >
-                      {notifs.length > 0 && notifs.length <= 9 && (
-                        <Badge
-                          bg="red.500"
-                          borderRadius={50}
-                          color={"white"}
-                          _text={{
-                            color: "white",
-                          }}
-                          w={6}
-                          h={6}
-                        >
-                          {notifs.length}
-                        </Badge>
-                      )}
-                      {notifs.length > 9 && (
-                        <Badge
-                          bg="red.500"
-                          borderRadius={50}
-                          color={"white"}
-                          _text={{
-                            color: "white",
-                          }}
-                          w={8}
-                          h={6}
-                        >
-                          9+
-                        </Badge>
-                      )}
-                    </View>
-                    <MaterialCommunityIcons
-                      name="bell-outline"
-                      size={24}
-                      color="black"
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={tw`mr-3`}
-                    onPress={() => {
-                      navigation.navigate("Panier");
-                    }}
-                  >
-                    <View
-                      style={{
-                        position: "absolute",
-                        top: -15,
-                        right: -17,
-                      }}
-                    >
-                      {cart.length > 0 && cart.length <= 9 && (
-                        <Badge
-                          bg="red.500"
-                          borderRadius={50}
-                          color={"white"}
-                          _text={{
-                            color: "white",
-                          }}
-                          w={6}
-                          h={6}
-                        >
-                          {cart.length}
-                        </Badge>
-                      )}
-                      {cart.length > 9 && (
-                        <Badge
-                          bg="red.500"
-                          borderRadius={50}
-                          color={"white"}
-                          _text={{
-                            color: "white",
-                          }}
-                          w={8}
-                          h={6}
-                        >
-                          9+
-                        </Badge>
-                      )}
-                    </View>
-                    <MaterialCommunityIcons
-                      name="shopping-outline"
-                      size={24}
-                      color="black"
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={tw`mt-4 px-3`}>
-                <View>
-                  <Text style={tw`text-2xl`}>
-                    Explorez <Text style={tw`font-bold`}>l'Algérie</Text> avec
-                    nous!
-                  </Text>
-                </View>
-              </View>
-
-              <View style={tw`mt-8 mb-3`}>
-                <Text style={tw`font-semibold text-xl px-4`}>
-                  Nous disposons de
-                </Text>
-                <View
-                  style={tw`flex flex-row gap-2 pt-3 px-2 items-center justify-center`}
+                          <Ionicons
+                            name="log-out-outline"
+                            size={24}
+                            color="#374151"
+                          />
+                          <Text style={tw`font-semibold text-black`}>
+                            Déconnexion
+                          </Text>
+                        </View>
+                      </Menu.Item>
+                    </Menu>
+                  </View>
+                )}
+                <TouchableOpacity
+                  style={tw`px-2 mr-2`}
+                  onPress={() => {
+                    navigation.navigate("Notifications", {
+                      id: user.details._id,
+                    });
+                  }}
                 >
                   <View
-                    style={tw`rounded-full bg-blue-500 px-3 py-2 flex flex-row gap-2 items-center justify-center`}
+                    style={{
+                      position: "absolute",
+                      top: -15,
+                      right: -7,
+                    }}
                   >
-                    <Foundation name="mountains" size={17} color="white" />
-                    <Text style={tw`text-lg text-white`}>Randonées</Text>
+                    {notifs.length > 0 && notifs.length <= 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        _text={{
+                          color: "white",
+                          fontSize: 10,
+                        }}
+                        height={6}
+                        width={6}
+                      >
+                        {notifs.length}
+                      </Badge>
+                    )}
+                    {notifs.length > 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={8}
+                        h={6}
+                      >
+                        9+
+                      </Badge>
+                    )}
                   </View>
+                  <MaterialCommunityIcons
+                    name="bell-outline"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={tw`mr-1`}
+                  onPress={() => {
+                    navigation.navigate("Panier");
+                  }}
+                >
                   <View
-                    style={tw`rounded-full bg-blue-500 px-3 py-2 flex flex-row gap-2 items-center justify-center`}
+                    style={{
+                      position: "absolute",
+                      top: -15,
+                      right: -17,
+                    }}
                   >
-                    <FontAwesome5 name="store" size={17} color="white" />
-                    <Text style={tw`text-lg text-white`}>Articles d'achat</Text>
+                    {cart.length > 0 && cart.length <= 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={6}
+                        h={6}
+                      >
+                        {cart.length}
+                      </Badge>
+                    )}
+                    {cart.length > 9 && (
+                      <Badge
+                        bg="red.500"
+                        borderRadius={50}
+                        color={"white"}
+                        _text={{
+                          color: "white",
+                        }}
+                        w={8}
+                        h={6}
+                      >
+                        9+
+                      </Badge>
+                    )}
                   </View>
-                </View>
+                  <MaterialCommunityIcons
+                    name="shopping-outline"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
               </View>
-
-              <View style={tw`flex flex-row items-center justify-center mt-5`}>
-                <Text style={tw`text-[16px] text-gray-600`}>
-                  Parcourrez et choisissez ce qui vous convient!
+            </View>
+            <View style={tw`mt-6 px-3`}>
+              <View>
+                <Text style={tw`text-2xl`}>
+                  Explorez <Text style={tw`font-bold`}>l'Algérie</Text> avec
+                  nous!
                 </Text>
               </View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                style={tw`pt-4 mx-[4px] `}
-                contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
+            </View>
+
+            <View style={tw`mt-4 mb-3`}>
+              <Text style={tw`font-semibold text-xl px-4`}>
+                Nous disposons de
+              </Text>
+              <View
+                style={tw`mt-2 flex flex-row items-center justify-center gap-2 px-4`}
               >
-                <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("Map");
-                    }}
-                  >
-                    <Image
-                      source={require("./../../assets/hikers.jpg")}
-                      style={styles.image}
-                    />
+                <View
+                  style={tw`rounded-full bg-blue-500 px-3 py-2 flex flex-row gap-1 items-center justify-center`}
+                >
+                  <FontAwesome5 name="store" size={17} color="white" />
+                  <Text style={tw`text-lg text-white`}>Articles d'achat</Text>
+                </View>
+                <View
+                  style={tw`rounded-full bg-blue-500 px-3 py-2 flex flex-row gap-1 items-center justify-center`}
+                >
+                  <Foundation name="mountains" size={17} color="white" />
+                  <Text style={tw`text-lg text-white`}>des randonées</Text>
+                </View>
+              </View>
+            </View>
 
-                    <Text
-                      style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
-                    >
-                      Randonées
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+            <View style={tw`flex flex-row items-center justify-center mt-5`}>
+              <Text style={tw`text-[16px] text-gray-600`}>
+                Parcourrez et choisissez ce qui vous convient!
+              </Text>
+            </View>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={tw`pt-4 mx-[4px] `}
+              contentContainerStyle={tw`flex flex-row items-center justify-center gap-2`}
+            >
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Map");
+                  }}
+                >
+                  <Image
+                    source={require("./../../assets/hikers.jpg")}
+                    style={styles.image}
+                  />
 
-                <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("Products");
-                    }}
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
                   >
-                    <Image
-                      source={require("./../../assets/chair.jpg")}
-                      style={styles.image}
-                    />
-                    <Text
-                      style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
-                    >
-                      Chaises
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("Products");
-                    }}
+                    Randonées
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Products");
+                  }}
+                >
+                  <Image
+                    source={require("./../../assets/chair.jpg")}
+                    style={styles.image}
+                  />
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
                   >
-                    <Image
-                      source={require("./../../assets/tante.jpg")}
-                      style={styles.image}
-                    />
-                    <Text
-                      style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
-                    >
-                      Tantes
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("Products");
-                    }}
+                    Chaises
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Products");
+                  }}
+                >
+                  <Image
+                    source={require("./../../assets/tante.jpg")}
+                    style={styles.image}
+                  />
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
                   >
-                    <Image
-                      source={require("./../../assets/photo.png")}
-                      style={styles.image}
-                    />
-                    <Text
-                      style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
-                    >
-                      Vetements
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </ScrollView>
-            </SafeAreaView>
+                    Tantes
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Products");
+                  }}
+                >
+                  <Image
+                    source={require("./../../assets/photo.png")}
+                    style={styles.image}
+                  />
+                  <Text
+                    style={tw`absolute bottom-2 left-2 text-white text-lg font-semibold`}
+                  >
+                    Vetements
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
           </ScrollView>
         </>
       )}
@@ -421,8 +424,8 @@ export default function Home({ navigation, route }) {
 }
 const styles = StyleSheet.create({
   image: {
-    width: 220,
-    height: 220,
+    width: 250,
+    height: 290,
     borderRadius: 10,
     opacity: 0.8,
   },
@@ -435,9 +438,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
     marginRight: 10,
   },
 });
