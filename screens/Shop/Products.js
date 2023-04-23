@@ -61,7 +61,7 @@ const Products = ({ navigation }) => {
                   height: 120,
                   borderRadius: 10,
                   resizeMode: "cover",
-                  borderRadius: 10,
+                  borderRadius: 11,
                 }}
               />
               <View
