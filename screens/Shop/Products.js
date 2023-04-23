@@ -32,7 +32,11 @@ const Products = ({ navigation }) => {
         maxHeight: "80%",
       }}
     >
-      <View>
+      <View
+        style={{
+          ...tw`flex flex-col gap-3 px-3 mt-4`,
+        }}
+      >
         {products.map((product) => (
           <TouchableOpacity
             key={product._id}
@@ -94,12 +98,12 @@ const Products = ({ navigation }) => {
 
                 <View
                   style={{
-                    ...tw` text-[14px] bg-gray-300 rounded-lg px-2 py-1 w-20`,
+                    ...tw`bg-gray-300 rounded-lg px-2 py-1 w-3/5`,
                   }}
                 >
                   <Text
                     style={{
-                      ...tw`text-blue-500 font-bold`,
+                      ...tw`text-[14px] text-blue-500 font-bold`,
                     }}
                   >
                     {product.price} DZD

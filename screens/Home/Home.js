@@ -204,7 +204,7 @@ export default function Home({ navigation, route }) {
                   </View>
                 )}
                 <TouchableOpacity
-                  style={tw`px-2 mr-2`}
+                  style={tw`px-2 mr-1`}
                   onPress={() => {
                     navigation.navigate("Notifications", {
                       id: user.details._id,

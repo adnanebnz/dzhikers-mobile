@@ -76,7 +76,7 @@ export default function Details({ route, navigation }) {
 
   return (
     <NativeBaseProvider>
-      <SafeAreaView style={{ marginTop: 10, paddingHorizontal: 4 }}>
+      <SafeAreaView>
         {loading && (
           <View
             style={{
@@ -107,11 +107,26 @@ export default function Details({ route, navigation }) {
                     height: 300,
                     resizeMode: "cover",
                     zIndex: 0,
-                    borderRadius: 15,
+                    borderBottomRightRadius: 15,
+                    borderBottomLeftRadius: 15,
                   }}
                 />
                 <View
-                  style={tw`absolute bottom-60 left-2 text-white text-lg font-semibold h-10 w-10 bg-gray-700 rounded-full flex justify-center items-center opacity-75`}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    position: "absolute",
+                    top: 10,
+                    left: 15,
+                    zIndex: 1,
+                    backgroundColor: "#374151",
+                    width: "auto",
+                    height: "auto",
+                    borderRadius: 50,
+                    opacity: 0.8,
+                  }}
                 >
                   <IconButton
                     icon={<Icon as={AntDesign} name="arrowleft" />}
@@ -167,7 +182,9 @@ export default function Details({ route, navigation }) {
                       size={20}
                       color="grey"
                     />
-                    <Text style={tw`text-gray-500`}>{data.places}</Text>
+                    <Text style={tw`text-gray-500`}>
+                      {data.places} places restantes
+                    </Text>
                   </View>
                 </View>
 
