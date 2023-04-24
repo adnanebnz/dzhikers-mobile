@@ -101,7 +101,11 @@ export default function Details({ route, navigation }) {
             >
               <View>
                 <Image
-                  source={{ uri: data.img }}
+                  source={{
+                    uri:
+                      "http://192.168.1.41:8800/Images/" +
+                      data.img.split("/")[4],
+                  }}
                   style={{
                     width: "100%",
                     height: 300,

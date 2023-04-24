@@ -68,7 +68,11 @@ const Product = ({ navigation, route }) => {
           >
             <View>
               <SliderBox
-                images={[data.img, data.img2, data.img3]}
+                images={[
+                  "http://192.168.1.41:8800/Images/" + data.img.split("/")[4],
+                  "http://192.168.1.41:8800/Images/" + data.img2.split("/")[4],
+                  "http://192.168.1.41:8800/Images/" + data.img3.split("/")[4],
+                ]}
                 sliderBoxHeight={width}
                 dotColor="#1d4ed8"
                 inactiveDotColor="#90A4AE"

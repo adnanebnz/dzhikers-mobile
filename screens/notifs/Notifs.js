@@ -79,7 +79,9 @@ export default function Notifs({ navigation, route }) {
                       <View style={tw`flex-row items-center gap-2`}>
                         <Image
                           source={{
-                            uri: item.img,
+                            uri:
+                              "http://192.168.1.41:8800/Images/" +
+                              item.img.split("/")[4],
                           }}
                           style={{
                             ...tw`w-14 h-14 rounded-full`,

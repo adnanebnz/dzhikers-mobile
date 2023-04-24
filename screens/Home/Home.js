@@ -120,89 +120,78 @@ export default function Home({ navigation, route }) {
                   gap: 5,
                 }}
               >
-                {!user && (
-                  <TouchableOpacity
-                    style={tw`px-2`}
-                    onPress={() => {
-                      navigation.navigate("Login");
+                <View
+                  style={{
+                    paddingRight: 5,
+                  }}
+                >
+                  <Menu
+                    marginRight={2}
+                    w="150"
+                    trigger={(triggerProps) => {
+                      return (
+                        <Pressable {...triggerProps}>
+                          <Image
+                            source={{
+                              uri:
+                                "http://192.168.1.41:8800/Images/" +
+                                user.details.img.split("/")[4],
+                            }}
+                            style={styles.avatar}
+                          />
+                        </Pressable>
+                      );
                     }}
                   >
-                    <Image
-                      source={require("../../assets/noavatar.png")}
-                      style={styles.avatar}
-                    />
-                  </TouchableOpacity>
-                )}
-                {user && (
-                  <View
-                    style={{
-                      paddingRight: 5,
-                    }}
-                  >
-                    <Menu
-                      marginRight={2}
-                      w="150"
-                      trigger={(triggerProps) => {
-                        return (
-                          <Pressable {...triggerProps}>
-                            <Image
-                              source={{ uri: user.details.img }}
-                              style={styles.avatar}
-                            />
-                          </Pressable>
-                        );
+                    <Menu.Item
+                      onPress={() => {
+                        navigation.navigate("Profile");
                       }}
                     >
-                      <Menu.Item
-                        onPress={() => {
-                          navigation.navigate("Profile");
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10,
                         }}
                       >
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 10,
-                          }}
-                        >
-                          <Ionicons
-                            name="person-outline"
-                            size={24}
-                            color="#374151"
-                          />
-                          <Text style={tw`font-semibold text-black`}>
-                            Profile
-                          </Text>
-                        </View>
-                      </Menu.Item>
-                      <Divider />
-                      <Menu.Item
-                        onPress={() => {
-                          handleDisconnect();
+                        <Ionicons
+                          name="person-outline"
+                          size={24}
+                          color="#374151"
+                        />
+                        <Text style={tw`font-semibold text-black`}>
+                          Profile
+                        </Text>
+                      </View>
+                    </Menu.Item>
+                    <Divider />
+                    <Menu.Item
+                      onPress={() => {
+                        handleDisconnect();
+                      }}
+                    >
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 10,
                         }}
                       >
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: 10,
-                          }}
-                        >
-                          <Ionicons
-                            name="log-out-outline"
-                            size={24}
-                            color="#374151"
-                          />
-                          <Text style={tw`font-semibold text-black`}>
-                            Déconnexion
-                          </Text>
-                        </View>
-                      </Menu.Item>
-                    </Menu>
-                  </View>
-                )}
+                        <Ionicons
+                          name="log-out-outline"
+                          size={24}
+                          color="#374151"
+                        />
+                        <Text style={tw`font-semibold text-black`}>
+                          Déconnexion
+                        </Text>
+                      </View>
+                    </Menu.Item>
+                  </Menu>
+                </View>
                 <TouchableOpacity
                   style={tw`px-2 mr-1`}
                   onPress={() => {

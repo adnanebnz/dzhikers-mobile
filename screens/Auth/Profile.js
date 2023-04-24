@@ -36,7 +36,9 @@ export default function Profile({ navigation }) {
               <View style={tw`flex-row items-center`}>
                 <Image
                   source={{
-                    uri: user.details.img,
+                    uri:
+                      "http://192.168.1.41:8800/Images/" +
+                      user.details.img.split("/")[4],
                   }}
                   style={tw`w-12 h-12 rounded-full mr-4`}
                 />
