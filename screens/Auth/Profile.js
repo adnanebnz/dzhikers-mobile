@@ -43,7 +43,7 @@ export default function Profile({ navigation }) {
                   style={tw`w-12 h-12 rounded-full mr-4`}
                 />
                 <View>
-                  <Text style={tw`text-lg font-medium`}>
+                  <Text style={tw`text-[16px] font-medium`}>
                     {user.details.lastName} {user.details.firstName}
                   </Text>
                   <Text style={tw`text-gray-500 text-[12px]`}>
@@ -55,7 +55,7 @@ export default function Profile({ navigation }) {
                 </View>
               </View>
               <TouchableOpacity
-                style={tw`rounded-full bg-gray-300 p-2`}
+                style={tw`rounded-full bg-gray-300 p-2 mt-3`}
                 onPress={() =>
                   navigation.navigate("EditProfile", { id: user.details._id })
                 }

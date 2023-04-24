@@ -74,11 +74,7 @@ export default function Root({ navigation, route }) {
               tabBarActiveTintColor: "#2563eb",
               tabBarStyle: {
                 backgroundColor: "#e2e8f0",
-                position: "absolute",
-                bottom: 25,
-                left: 40,
-                right: 40,
-                elevation: 1,
+                elevation: 6,
                 borderRadius: 15,
                 height: 80,
               },

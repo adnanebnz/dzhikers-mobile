@@ -111,8 +111,8 @@ export default function Details({ route, navigation }) {
                     height: 300,
                     resizeMode: "cover",
                     zIndex: 0,
-                    borderBottomRightRadius: 15,
-                    borderBottomLeftRadius: 15,
+                    borderBottomRightRadius: 10,
+                    borderBottomLeftRadius: 10,
                   }}
                 />
                 <View

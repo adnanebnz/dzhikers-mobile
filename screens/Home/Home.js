@@ -70,6 +70,7 @@ export default function Home({ navigation, route }) {
     }
     navigation.navigate("Login");
   };
+
   return (
     <NativeBaseProvider>
       {loading ? (
@@ -292,11 +293,43 @@ export default function Home({ navigation, route }) {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={tw`mt-6 px-3`}>
-              <View>
-                <Text style={tw`text-2xl`}>
+            <View style={tw`mt-4 px-3`}>
+              <View
+                style={{
+                  backgroundColor: "black",
+                  width: "100%",
+                  height: 200,
+                  borderRadius: 10,
+                  position: "absolute",
+                  marginLeft: 12,
+                }}
+              />
+              <Image
+                source={require("./../../assets/trail1.jpg")}
+                style={{
+                  width: "100%",
+                  height: 200,
+                  resizeMode: "cover",
+                  borderRadius: 10,
+                  opacity: 0.65,
+                }}
+              />
+              <View
+                style={{
+                  ...tw`flex flex col justify-between`,
+                }}
+              >
+                <Text style={tw`absolute -top-48 left-2 text-xl text-white`}>
                   Explorez <Text style={tw`font-bold`}>l'Algérie</Text> avec
                   nous!
+                </Text>
+                <Text
+                  style={tw`absolute -top-18 left-2 text-xl text-white font-semibold`}
+                >
+                  Bonjour,
+                </Text>
+                <Text style={tw`absolute -top-11 left-2 text-lg text-white`}>
+                  {user.details.lastName} {user.details.firstName}
                 </Text>
               </View>
             </View>
@@ -323,7 +356,7 @@ export default function Home({ navigation, route }) {
               </View>
             </View>
 
-            <View style={tw`flex flex-row items-center justify-center mt-5`}>
+            <View style={tw`flex flex-row items-center justify-center `}>
               <Text style={tw`text-[16px] text-gray-600`}>
                 Parcourrez et choisissez ce qui vous convient!
               </Text>
@@ -413,8 +446,8 @@ export default function Home({ navigation, route }) {
 }
 const styles = StyleSheet.create({
   image: {
-    width: 250,
-    height: 290,
+    width: 190,
+    height: 190,
     borderRadius: 10,
     opacity: 0.8,
   },

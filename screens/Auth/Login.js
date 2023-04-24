@@ -44,7 +44,6 @@ export default function Login({ navigation, route }) {
     }
     setLoading(false);
   };
-  console.log("TOKEN FROM LOGIN: ", token);
   return (
     <SafeAreaView>
       <ScrollView
