@@ -135,7 +135,7 @@ export default function Home({ navigation, route }) {
                           <Image
                             source={{
                               uri:
-                                "http://192.168.1.41:8800/Images/" +
+                                "http://192.168.29.51:8800/Images/" +
                                 user.details.img.split("/")[4],
                             }}
                             style={styles.avatar}
@@ -316,7 +316,7 @@ export default function Home({ navigation, route }) {
               />
               <View
                 style={{
-                  ...tw`flex flex col justify-between`,
+                  ...tw`flex flex-col justify-between`,
                 }}
               >
                 <Text style={tw`absolute -top-48 left-2 text-xl text-white`}>

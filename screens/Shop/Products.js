@@ -112,9 +112,9 @@ const Products = ({ navigation }) => {
         {products.map((product) => (
           <TouchableOpacity
             style={{
-              width: ITEM_WIDTH * 1.2,
+              width: ITEM_WIDTH * 1.17,
               marginBottom: SPACING * 2,
-              paddingLeft: 5,
+              paddingLeft: 10,
               paddingRight: 5,
             }}
             key={product._id}
@@ -132,7 +132,7 @@ const Products = ({ navigation }) => {
               }}
               source={{
                 uri:
-                  "http://192.168.1.41:8800/Images/" +
+                  "http://192.168.29.51:8800/Images/" +
                   product.img3.split("/")[4],
               }}
             />
@@ -158,36 +158,38 @@ const Products = ({ navigation }) => {
           </TouchableOpacity>
         ))}
       </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginHorizontal: 30,
-          marginBottom: 50,
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => {
-            if (page > 1) {
-              setPage(page - 1);
+      {products.length > 0 && (
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginHorizontal: 30,
+            marginBottom: 50,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              if (page > 1) {
+                setPage(page - 1);
+                scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+              }
+            }}
+          >
+            <Ionicons name="chevron-back" size={24} color="black" />
+          </TouchableOpacity>
+          <Text>Page {page}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              if (Math.ceil(itemCount / 12) > page) setPage(page + 1);
               scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-            }
-          }}
-        >
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text>Page {page}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            if (Math.ceil(itemCount / 12) > page) setPage(page + 1);
-            scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-          }}
-        >
-          <Ionicons name="chevron-forward" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+            }}
+          >
+            <Ionicons name="chevron-forward" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+      )}
     </ScrollView>
   );
 };

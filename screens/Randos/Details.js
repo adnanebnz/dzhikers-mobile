@@ -103,7 +103,7 @@ export default function Details({ route, navigation }) {
                 <Image
                   source={{
                     uri:
-                      "http://192.168.1.41:8800/Images/" +
+                      "http://192.168.29.51:8800/Images/" +
                       data.img.split("/")[4],
                   }}
                   style={{
