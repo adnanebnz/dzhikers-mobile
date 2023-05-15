@@ -37,7 +37,7 @@ export default function Profile({ navigation }) {
                 <Image
                   source={{
                     uri:
-                      "http://192.168.29.51:8800/Images/" +
+                      "http://192.168.1.42:8800/Images/" +
                       user.details.img.split("/")[4],
                   }}
                   style={tw`w-12 h-12 rounded-full mr-4`}

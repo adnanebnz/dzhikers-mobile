@@ -68,7 +68,7 @@ export default function Cart({ navigation }) {
                       <Image
                         source={{
                           uri:
-                            "http://192.168.29.51:8800/Images/" +
+                            "http://192.168.1.42:8800/Images/" +
                             item.img3.split("/")[4],
                         }}
                         style={{

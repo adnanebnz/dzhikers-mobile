@@ -135,7 +135,7 @@ export default function Home({ navigation, route }) {
                           <Image
                             source={{
                               uri:
-                                "http://192.168.29.51:8800/Images/" +
+                                "http://192.168.1.42:8800/Images/" +
                                 user.details.img.split("/")[4],
                             }}
                             style={styles.avatar}
