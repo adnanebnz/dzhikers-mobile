@@ -132,14 +132,25 @@ export default function Home({ navigation, route }) {
                     trigger={(triggerProps) => {
                       return (
                         <Pressable {...triggerProps}>
-                          <Image
-                            source={{
-                              uri:
-                                "http://192.168.1.42:8800/Images/" +
-                                user.details.img.split("/")[4],
-                            }}
-                            style={styles.avatar}
-                          />
+                          {user.details.img === "" ||
+                          user.details.img ===
+                            "http://192.168.1.37:8800/Images/" + undefined ? (
+                            <>
+                              <Image
+                                source={require("./../../assets/noavatar.png")}
+                                style={{ ...tw`w-9 h-9 rounded-full mr-3` }}
+                              />
+                            </>
+                          ) : (
+                            <Image
+                              source={{
+                                uri:
+                                  "http://192.168.1.37:8800/Images/" +
+                                  user.details.img.split("/")[4],
+                              }}
+                              style={styles.avatar}
+                            />
+                          )}
                         </Pressable>
                       );
                     }}

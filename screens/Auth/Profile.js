@@ -34,14 +34,25 @@ export default function Profile({ navigation }) {
           <View style={tw`px-3 pt-3`}>
             <View style={tw`flex-row items-center justify-between`}>
               <View style={tw`flex-row items-center`}>
-                <Image
-                  source={{
-                    uri:
-                      "http://192.168.1.42:8800/Images/" +
-                      user.details.img.split("/")[4],
-                  }}
-                  style={tw`w-12 h-12 rounded-full mr-4`}
-                />
+                {user.details.img === "" ||
+                user.details.img ===
+                  "http://192.168.1.37:8800/Images/" + undefined ? (
+                  <>
+                    <Image
+                      source={require("./../../assets/noavatar.png")}
+                      style={{ ...tw`w-12 h-12 rounded-full mr-4` }}
+                    />
+                  </>
+                ) : (
+                  <Image
+                    source={{
+                      uri:
+                        "http://192.168.1.37:8800/Images/" +
+                        user.details.img.split("/")[4],
+                    }}
+                    style={{ ...tw`w-12 h-12 rounded-full mr-4` }}
+                  />
+                )}
                 <View>
                   <Text style={tw`text-[16px] font-medium`}>
                     {user.details.lastName} {user.details.firstName}
