@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "twrnc";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -134,7 +133,7 @@ export default function Home({ navigation, route }) {
                         <Pressable {...triggerProps}>
                           {user.details.img === "" ||
                           user.details.img ===
-                            "http://192.168.1.41:8800/Images/" + undefined ? (
+                            "http://192.168.1.42:8800/Images/" + undefined ? (
                             <>
                               <Image
                                 source={require("./../../assets/noavatar.png")}
@@ -145,7 +144,7 @@ export default function Home({ navigation, route }) {
                             <Image
                               source={{
                                 uri:
-                                  "http://192.168.1.41:8800/Images/" +
+                                  "http://192.168.1.42:8800/Images/" +
                                   user.details.img.split("/")[4],
                               }}
                               style={styles.avatar}
@@ -460,7 +459,7 @@ const styles = StyleSheet.create({
     width: 190,
     height: 190,
     borderRadius: 10,
-    opacity: 0.8,
+    opacity: 0.9,
   },
 
   input: {

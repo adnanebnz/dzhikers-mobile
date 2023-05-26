@@ -68,9 +68,9 @@ const Product = ({ navigation, route }) => {
           <View>
             <SliderBox
               images={[
-                "http://192.168.1.41:8800/Images/" + data.img.split("/")[4],
-                "http://192.168.1.41:8800/Images/" + data.img2.split("/")[4],
-                "http://192.168.1.41:8800/Images/" + data.img3.split("/")[4],
+                "http://192.168.1.42:8800/Images/" + data.img.split("/")[4],
+                "http://192.168.1.42:8800/Images/" + data.img2.split("/")[4],
+                "http://192.168.1.42:8800/Images/" + data.img3.split("/")[4],
               ]}
               sliderBoxHeight={width}
               dotColor="#1d4ed8"
@@ -162,58 +162,64 @@ const Product = ({ navigation, route }) => {
 
             <Text style={tw`text-gray-700`}>{data.desc}</Text>
             <View style={tw`mt-1`}>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10,
-                  ...tw`bg-gray-200 px-2 py-2 rounded-xl w-48 mx-auto`,
-                  justifyContent: "center",
-                  marginBottom: 10,
-                }}
-              >
-                <Text style={tw`text-gray-700 font-semibold`}>Quantité</Text>
-                <View
-                  style={{
-                    ...tw`flex flex-row items-center justify-center gap-2
-                      border border-blue-300 rounded-md
-                      `,
-                  }}
-                >
-                  <IconButton
-                    icon={<Icon as={AntDesign} name="minus" />}
-                    _icon={{
-                      color: "blue.400",
-                    }}
-                    onPress={() => {
-                      setCount(Math.max(count - 1, 1));
-                    }}
-                  />
-                  <Text
+              {data.quantity > 0 && (
+                <>
+                  <View
                     style={{
-                      ...tw`text-gray-700 text-lg`,
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                      ...tw`bg-gray-200 px-2 py-2 rounded-xl w-48 mx-auto`,
+                      justifyContent: "center",
+                      marginBottom: 10,
                     }}
                   >
-                    {count}
-                  </Text>
-                  <IconButton
-                    icon={<Icon as={AntDesign} name="plus" />}
-                    _icon={{
-                      color: "blue.400",
-                    }}
+                    <Text style={tw`text-gray-700 font-semibold`}>
+                      Quantité
+                    </Text>
+                    <View
+                      style={{
+                        ...tw`flex flex-row items-center justify-center gap-2
+                      border border-blue-300 rounded-md
+                      `,
+                      }}
+                    >
+                      <IconButton
+                        icon={<Icon as={AntDesign} name="minus" />}
+                        _icon={{
+                          color: "blue.400",
+                        }}
+                        onPress={() => {
+                          setCount(Math.max(count - 1, 1));
+                        }}
+                      />
+                      <Text
+                        style={{
+                          ...tw`text-gray-700 text-lg`,
+                        }}
+                      >
+                        {count}
+                      </Text>
+                      <IconButton
+                        icon={<Icon as={AntDesign} name="plus" />}
+                        _icon={{
+                          color: "blue.400",
+                        }}
+                        onPress={() => {
+                          if (count < data.quantity) setCount(count + 1);
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <Button
+                    title="Ajouter au panier"
                     onPress={() => {
-                      if (count < data.quantity) setCount(count + 1);
+                      dispatch(addToCart({ item: { ...data, count } }));
                     }}
                   />
-                </View>
-              </View>
-              <Button
-                title="Ajouter au panier"
-                onPress={() => {
-                  dispatch(addToCart({ item: { ...data, count } }));
-                }}
-              />
+                </>
+              )}
             </View>
             {error && (
               <View style={tw`px-1 py-3 mt-2 rounded-lg bg-gray-200`}>

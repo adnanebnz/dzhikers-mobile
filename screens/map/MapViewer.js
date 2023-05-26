@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import Mapbox, { Callout } from "@rnmapbox/maps";
+import Mapbox from "@rnmapbox/maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { makeRequest } from "../../makeRequest";
-import { Text, View, Button, ActivityIndicator } from "react-native";
-import tw from "twrnc";
+import { View, ActivityIndicator } from "react-native";
 import { StatusBar } from "react-native";
-import { Ionicons } from "@expo/vector-icons/build/Icons";
 export default function MapViewer({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [pins, setPins] = useState([]);

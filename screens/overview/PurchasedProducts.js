@@ -192,7 +192,7 @@ const PurchasedProducts = ({ navigation, route }) => {
                     {item.delivery_status === "shipping" && (
                       <View
                         style={{
-                          ...tw`bg-orange-200 rounded-lg p-2`,
+                          ...tw`bg-indigo-500 rounded-lg p-2`,
                         }}
                       >
                         <Text
