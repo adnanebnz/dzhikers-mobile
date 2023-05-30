@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const makeRequest = axios.create({
-  baseURL: "http://192.168.1.42:8800/api",
+  baseURL: "https://dzhikers-web-production.up.railway.app/api",
 });

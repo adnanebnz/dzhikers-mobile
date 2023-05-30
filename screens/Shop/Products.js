@@ -132,7 +132,7 @@ const Products = ({ navigation }) => {
               }}
               source={{
                 uri:
-                  "http://192.168.1.42:8800/Images/" +
+                  "https://dzhikers-web-production.up.railway.app/Images/" +
                   product.img3.split("/")[4],
               }}
             />

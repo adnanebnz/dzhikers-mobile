@@ -80,7 +80,7 @@ export default function Notifs({ navigation, route }) {
                         <Image
                           source={{
                             uri:
-                              "http://192.168.1.42:8800/Images/" +
+                              "https://dzhikers-web-production.up.railway.app/Images/" +
                               item.img.split("/")[4],
                           }}
                           style={{
