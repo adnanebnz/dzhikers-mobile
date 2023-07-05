@@ -103,7 +103,7 @@ export default function Details({ route, navigation }) {
                 <Image
                   source={{
                     uri:
-                      "https://dzhikers-web-production.up.railway.app/Images/" +
+                      "http://192.168.72.51:8800/Images/" +
                       data.img.split("/")[4],
                   }}
                   style={{

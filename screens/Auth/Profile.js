@@ -36,8 +36,7 @@ export default function Profile({ navigation }) {
               <View style={tw`flex-row items-center`}>
                 {user.details.img === "" ||
                 user.details.img ===
-                  "https://dzhikers-web-production.up.railway.app/Images/" +
-                    undefined ? (
+                  "http://192.168.72.51:8800/Images/" + undefined ? (
                   <>
                     <Image
                       source={require("./../../assets/noavatar.png")}
@@ -48,7 +47,7 @@ export default function Profile({ navigation }) {
                   <Image
                     source={{
                       uri:
-                        "https://dzhikers-web-production.up.railway.app/Images/" +
+                        "http://192.168.72.51:8800/Images/" +
                         user.details.img.split("/")[4],
                     }}
                     style={{ ...tw`w-12 h-12 rounded-full mr-4` }}
